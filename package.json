@@ -46,7 +46,7 @@
     "!assets/**/README*.md"
   ],
   "scripts": {
-    "test": "node --test test/*.test.cjs",
+    "test": "node --test",
     "docs:check": "node tools/reference.cjs --check && node tools/check-docs.cjs",
     "docs:reference": "node tools/reference.cjs",
     "check:package": "node tools/check-package.cjs",

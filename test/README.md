@@ -6,6 +6,8 @@
 
 Real temporary Hexo sites verify theme behavior. Temporary fixtures are removed after each test.
 
+`npm test` uses Node's built-in test discovery without shell glob expansion, including on Windows with Node.js 20.
+
 ## Main Interfaces / Implementations
 
 | Name | Kind | Description |

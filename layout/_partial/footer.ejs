@@ -1,0 +1,7 @@
+<% const f = cosmos().footer; const year = date(Date.now(),'YYYY'); %>
+<footer class="site-footer shell" id="site-footer">
+  <% if (f.copyright) { %><span class="footer-copyright">© <%= f.since && String(f.since) !== year ? f.since + '–' : '' %><%= year %> <%= f.author || config.author %></span><% } %>
+  <% if (f.text) { %><span><%= f.text %></span><% } %>
+  <% if (f.links.length) { %><nav class="footer-links" aria-label="<%= cx('explore') %>"><% cosmos_links(f.links).forEach(link => { %><a href="<%= link.href %>"><%= link.label %></a><% }) %></nav><% } %>
+  <% if (f.back_to_top) { %><button class="back-top" type="button" aria-label="<%= cx('back_top') %>"><%- icon('up') %></button><% } %>
+</footer>

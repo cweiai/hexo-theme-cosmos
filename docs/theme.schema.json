@@ -1,0 +1,1061 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cosmos theme overrides",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "brand": {
+      "type": "object",
+      "description": "Header and metadata: brand. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Header and metadata: brand.title. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "aside": {
+          "type": "string",
+          "description": "Header and metadata: brand.aside. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "favicon": {
+          "type": "string",
+          "description": "Header and metadata: brand.favicon. See the configuration guide for behavior.",
+          "default": ""
+        }
+      }
+    },
+    "home": {
+      "type": "object",
+      "description": "Cover homepage: home. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "cover generates a full-screen homepage; blog places the article index at the root.",
+          "default": "cover",
+          "enum": [
+            "cover",
+            "blog"
+          ]
+        },
+        "header": {
+          "type": "boolean",
+          "description": "Cover homepage: home.header. See the configuration guide for behavior.",
+          "default": false
+        },
+        "footer": {
+          "type": "boolean",
+          "description": "Cover homepage: home.footer. See the configuration guide for behavior.",
+          "default": false
+        },
+        "title": {
+          "type": "string",
+          "description": "Cover homepage: home.title. See the configuration guide for behavior.",
+          "default": "An open"
+        },
+        "aside": {
+          "type": "string",
+          "description": "Cover homepage: home.aside. See the configuration guide for behavior.",
+          "default": "notebook."
+        },
+        "description": {
+          "type": "string",
+          "description": "Cover homepage: home.description. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "image": {
+          "type": "object",
+          "description": "Static cover artwork. src is a site-relative or HTTP(S) URL; width/height are intrinsic dimensions.",
+          "additionalProperties": false,
+          "properties": {
+            "src": {
+              "type": "string",
+              "description": "Cover homepage: home.image.src. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "alt": {
+              "type": "string",
+              "description": "Cover homepage: home.image.alt. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "width": {
+              "type": "number",
+              "description": "Cover homepage: home.image.width. See the configuration guide for behavior.",
+              "default": 1254
+            },
+            "height": {
+              "type": "number",
+              "description": "Cover homepage: home.image.height. See the configuration guide for behavior.",
+              "default": 1254
+            }
+          }
+        },
+        "links": {
+          "type": "array",
+          "description": "Cover homepage: home.links. See the configuration guide for behavior.",
+          "default": [
+            {
+              "route": "blog",
+              "label": "",
+              "icon": "arrow"
+            },
+            {
+              "route": "about",
+              "label": "",
+              "icon": "diagonal"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "route": {
+                "enum": [
+                  "home",
+                  "about",
+                  "blog",
+                  "archives",
+                  "categories",
+                  "tags"
+                ]
+              },
+              "url": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "route"
+                ]
+              },
+              {
+                "required": [
+                  "url"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "routes": {
+      "type": "object",
+      "description": "Generated routes: routes. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "blog": {
+          "type": "string",
+          "description": "Generated routes: routes.blog. See the configuration guide for behavior.",
+          "default": "blog"
+        },
+        "about": {
+          "type": "string",
+          "description": "Generated routes: routes.about. See the configuration guide for behavior.",
+          "default": "about"
+        }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "description": "Header navigation: navigation. See the configuration guide for behavior.",
+      "default": [
+        {
+          "route": "home",
+          "label": ""
+        },
+        {
+          "route": "about",
+          "label": ""
+        },
+        {
+          "route": "blog",
+          "label": ""
+        },
+        {
+          "route": "archives",
+          "label": ""
+        }
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route": {
+            "enum": [
+              "home",
+              "about",
+              "blog",
+              "archives",
+              "categories",
+              "tags"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "route"
+            ]
+          },
+          {
+            "required": [
+              "url"
+            ]
+          }
+        ]
+      }
+    },
+    "pages": {
+      "type": "object",
+      "description": "Generated pages: pages. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "about": {
+          "type": "boolean",
+          "description": "Generated pages: pages.about. See the configuration guide for behavior.",
+          "default": true
+        },
+        "categories": {
+          "type": "boolean",
+          "description": "Generated pages: pages.categories. See the configuration guide for behavior.",
+          "default": true
+        },
+        "tags": {
+          "type": "boolean",
+          "description": "Generated pages: pages.tags. See the configuration guide for behavior.",
+          "default": true
+        },
+        "not_found": {
+          "type": "boolean",
+          "description": "Generated pages: pages.not_found. See the configuration guide for behavior.",
+          "default": true
+        },
+        "custom": {
+          "type": "array",
+          "description": "Ordered generated pages. An existing source page at the same route takes precedence.",
+          "default": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "layout": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "about": {
+      "type": "object",
+      "description": "About page: about. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "header": {
+          "type": "boolean",
+          "description": "About page: about.header. See the configuration guide for behavior.",
+          "default": true
+        },
+        "header_html": {
+          "type": "string",
+          "description": "Trusted HTML replacing the full About heading.",
+          "default": ""
+        },
+        "sidebar_html": {
+          "type": "string",
+          "description": "Trusted HTML replacing the default profile sidebar.",
+          "default": ""
+        },
+        "title": {
+          "type": "string",
+          "description": "About page: about.title. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "aside": {
+          "type": "string",
+          "description": "About page: about.aside. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "introduction": {
+          "type": "string",
+          "description": "About page: about.introduction. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "content": {
+          "type": "string",
+          "description": "About page: about.content. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "file": {
+          "type": "string",
+          "description": "File relative to the blog source directory; takes precedence over about.content.",
+          "default": ""
+        },
+        "profile": {
+          "type": "object",
+          "description": "About page: about.profile. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Shows the configured profile. To remove the sidebar column, also leave about.sidebar_html empty.",
+              "default": true
+            },
+            "name": {
+              "type": "string",
+              "description": "About page: about.profile.name. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "avatar": {
+              "type": "string",
+              "description": "About page: about.profile.avatar. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "avatar_alt": {
+              "type": "string",
+              "description": "About page: about.profile.avatar_alt. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "facts": {
+              "type": "array",
+              "description": "About page: about.profile.facts. See the configuration guide for behavior.",
+              "default": [],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "email": {
+              "type": "string",
+              "description": "About page: about.profile.email. See the configuration guide for behavior.",
+              "default": ""
+            },
+            "contacts": {
+              "type": "array",
+              "description": "Ordered contacts. Empty entries are hidden; value-only entries are selectable text.",
+              "default": [
+                {
+                  "label": "GitHub",
+                  "url": ""
+                },
+                {
+                  "label": "LinkedIn",
+                  "url": ""
+                },
+                {
+                  "label": "X",
+                  "url": ""
+                },
+                {
+                  "label": "WeChat",
+                  "value": ""
+                },
+                {
+                  "label": "QQ",
+                  "value": ""
+                },
+                {
+                  "label": "Weibo",
+                  "url": ""
+                },
+                {
+                  "label": "Zhihu",
+                  "url": ""
+                },
+                {
+                  "label": "Bilibili",
+                  "url": ""
+                },
+                {
+                  "label": "Xiaohongshu",
+                  "url": ""
+                },
+                {
+                  "label": "Douyin",
+                  "url": ""
+                },
+                {
+                  "label": "YouTube",
+                  "url": ""
+                },
+                {
+                  "label": "Instagram",
+                  "url": ""
+                },
+                {
+                  "label": "Facebook",
+                  "url": ""
+                },
+                {
+                  "label": "TikTok",
+                  "url": ""
+                },
+                {
+                  "label": "Threads",
+                  "url": ""
+                },
+                {
+                  "label": "Telegram",
+                  "url": ""
+                },
+                {
+                  "label": "Discord",
+                  "url": ""
+                },
+                {
+                  "label": "Bluesky",
+                  "url": ""
+                },
+                {
+                  "label": "Mastodon",
+                  "url": ""
+                },
+                {
+                  "label": "Website",
+                  "url": ""
+                }
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "listing": {
+      "type": "object",
+      "description": "Blog, archives, categories and tags: listing. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Blog, archives, categories and tags: listing.title. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "title_period": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.title_period. See the configuration guide for behavior.",
+          "default": true
+        },
+        "categories": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.categories. See the configuration guide for behavior.",
+          "default": true
+        },
+        "counts": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.counts. See the configuration guide for behavior.",
+          "default": true
+        },
+        "excerpts": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.excerpts. See the configuration guide for behavior.",
+          "default": true
+        },
+        "excerpt_length": {
+          "type": "number",
+          "description": "Blog, archives, categories and tags: listing.excerpt_length. See the configuration guide for behavior.",
+          "default": 150
+        },
+        "date": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.date. See the configuration guide for behavior.",
+          "default": true
+        },
+        "category": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.category. See the configuration guide for behavior.",
+          "default": true
+        },
+        "reading_time": {
+          "type": "boolean",
+          "description": "Blog, archives, categories and tags: listing.reading_time. See the configuration guide for behavior.",
+          "default": true
+        },
+        "aside": {
+          "type": "string",
+          "description": "Blog, archives, categories and tags: listing.aside. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "aside_note": {
+          "type": "string",
+          "description": "Blog, archives, categories and tags: listing.aside_note. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "signoff": {
+          "type": "string",
+          "description": "Blog, archives, categories and tags: listing.signoff. See the configuration guide for behavior.",
+          "default": ""
+        }
+      }
+    },
+    "post": {
+      "type": "object",
+      "description": "Article pages: post. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "back_link": {
+          "type": "boolean",
+          "description": "Article pages: post.back_link. See the configuration guide for behavior.",
+          "default": true
+        },
+        "description": {
+          "type": "boolean",
+          "description": "Article pages: post.description. See the configuration guide for behavior.",
+          "default": true
+        },
+        "author": {
+          "type": "boolean",
+          "description": "Article pages: post.author. See the configuration guide for behavior.",
+          "default": true
+        },
+        "date": {
+          "type": "boolean",
+          "description": "Article pages: post.date. See the configuration guide for behavior.",
+          "default": true
+        },
+        "updated": {
+          "type": "boolean",
+          "description": "Article pages: post.updated. See the configuration guide for behavior.",
+          "default": false
+        },
+        "categories": {
+          "type": "boolean",
+          "description": "Article pages: post.categories. See the configuration guide for behavior.",
+          "default": false
+        },
+        "reading_time": {
+          "type": "boolean",
+          "description": "Article pages: post.reading_time. See the configuration guide for behavior.",
+          "default": true
+        },
+        "toc": {
+          "type": "boolean",
+          "description": "Article pages: post.toc. See the configuration guide for behavior.",
+          "default": true
+        },
+        "toc_depth": {
+          "type": "integer",
+          "description": "Maximum heading level shown in the article table of contents; integer from 1 to 6.",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 6
+        },
+        "toc_numbers": {
+          "type": "boolean",
+          "description": "Article pages: post.toc_numbers. See the configuration guide for behavior.",
+          "default": false
+        },
+        "reading_note": {
+          "type": "string",
+          "description": "Article pages: post.reading_note. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "progress": {
+          "type": "boolean",
+          "description": "Article pages: post.progress. See the configuration guide for behavior.",
+          "default": true
+        },
+        "copy_code": {
+          "type": "boolean",
+          "description": "Article pages: post.copy_code. See the configuration guide for behavior.",
+          "default": true
+        },
+        "tags": {
+          "type": "boolean",
+          "description": "Article pages: post.tags. See the configuration guide for behavior.",
+          "default": true
+        },
+        "signoff": {
+          "type": "string",
+          "description": "Article pages: post.signoff. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "navigation": {
+          "type": "boolean",
+          "description": "Article pages: post.navigation. See the configuration guide for behavior.",
+          "default": true
+        },
+        "comments": {
+          "type": "boolean",
+          "description": "Shows custom.after_post. This switch does not install a comment provider.",
+          "default": true
+        }
+      }
+    },
+    "search": {
+      "type": "object",
+      "description": "Local article search: search. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Local article search: search.enabled. See the configuration guide for behavior.",
+          "default": true
+        },
+        "path": {
+          "type": "string",
+          "description": "Generated local search JSON path; respects the site root.",
+          "default": "search.json"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum displayed search results; positive integer. Indexing remains local.",
+          "default": 30,
+          "minimum": 1
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "description": "Footer: footer. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Footer: footer.enabled. See the configuration guide for behavior.",
+          "default": true
+        },
+        "copyright": {
+          "type": "boolean",
+          "description": "Footer: footer.copyright. See the configuration guide for behavior.",
+          "default": true
+        },
+        "since": {
+          "type": "string",
+          "description": "Footer: footer.since. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "author": {
+          "type": "string",
+          "description": "Footer: footer.author. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "back_to_top": {
+          "type": "boolean",
+          "description": "Footer: footer.back_to_top. See the configuration guide for behavior.",
+          "default": true
+        },
+        "text": {
+          "type": "string",
+          "description": "Footer: footer.text. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "links": {
+          "type": "array",
+          "description": "Footer: footer.links. See the configuration guide for behavior.",
+          "default": [],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "route": {
+                "enum": [
+                  "home",
+                  "about",
+                  "blog",
+                  "archives",
+                  "categories",
+                  "tags"
+                ]
+              },
+              "url": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "route"
+                ]
+              },
+              {
+                "required": [
+                  "url"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "style": {
+      "type": "object",
+      "description": "Site appearance: style. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "colors": {
+          "type": "object",
+          "description": "Site appearance: style.colors. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "paper": {
+              "type": "string",
+              "description": "Site appearance: style.colors.paper. See the configuration guide for behavior.",
+              "default": "#f4eedf"
+            },
+            "paper_low": {
+              "type": "string",
+              "description": "Site appearance: style.colors.paper_low. See the configuration guide for behavior.",
+              "default": "#eae1d0"
+            },
+            "ink": {
+              "type": "string",
+              "description": "Site appearance: style.colors.ink. See the configuration guide for behavior.",
+              "default": "#342c24"
+            },
+            "muted": {
+              "type": "string",
+              "description": "Site appearance: style.colors.muted. See the configuration guide for behavior.",
+              "default": "#6c6052"
+            },
+            "accent": {
+              "type": "string",
+              "description": "Site appearance: style.colors.accent. See the configuration guide for behavior.",
+              "default": "#a6402c"
+            },
+            "honey": {
+              "type": "string",
+              "description": "Site appearance: style.colors.honey. See the configuration guide for behavior.",
+              "default": "#eccc77"
+            },
+            "rule": {
+              "type": "string",
+              "description": "Site appearance: style.colors.rule. See the configuration guide for behavior.",
+              "default": "#d4c7b1"
+            }
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "description": "Site appearance: style.fonts. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "sans": {
+              "type": "string",
+              "description": "Site appearance: style.fonts.sans. See the configuration guide for behavior.",
+              "default": "\"Hanken Grotesk\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif"
+            },
+            "serif": {
+              "type": "string",
+              "description": "Site appearance: style.fonts.serif. See the configuration guide for behavior.",
+              "default": "Petrona, \"Songti SC\", \"Noto Serif CJK SC\", Georgia, serif"
+            },
+            "preload": {
+              "type": "boolean",
+              "description": "Site appearance: style.fonts.preload. See the configuration guide for behavior.",
+              "default": true
+            }
+          }
+        },
+        "layout": {
+          "type": "object",
+          "description": "Site appearance: style.layout. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "max_width": {
+              "type": "string",
+              "description": "Site appearance: style.layout.max_width. See the configuration guide for behavior.",
+              "default": "1280px"
+            },
+            "prose_width": {
+              "type": "string",
+              "description": "Site appearance: style.layout.prose_width. See the configuration guide for behavior.",
+              "default": "none"
+            },
+            "profile_width": {
+              "type": "string",
+              "description": "Site appearance: style.layout.profile_width. See the configuration guide for behavior.",
+              "default": "270px"
+            },
+            "about_gap": {
+              "type": "string",
+              "description": "Site appearance: style.layout.about_gap. See the configuration guide for behavior.",
+              "default": "108px"
+            },
+            "toc_width": {
+              "type": "string",
+              "description": "Site appearance: style.layout.toc_width. See the configuration guide for behavior.",
+              "default": "230px"
+            },
+            "article_gap": {
+              "type": "string",
+              "description": "Site appearance: style.layout.article_gap. See the configuration guide for behavior.",
+              "default": "72px"
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "description": "Site appearance: style.typography. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "body_size": {
+              "type": "string",
+              "description": "Site appearance: style.typography.body_size. See the configuration guide for behavior.",
+              "default": "17px"
+            },
+            "body_mobile_size": {
+              "type": "string",
+              "description": "Site appearance: style.typography.body_mobile_size. See the configuration guide for behavior.",
+              "default": "16px"
+            },
+            "body_line_height": {
+              "type": [
+                "number",
+                "string"
+              ],
+              "description": "Site appearance: style.typography.body_line_height. See the configuration guide for behavior.",
+              "default": 1.9
+            },
+            "body_mobile_line_height": {
+              "type": [
+                "number",
+                "string"
+              ],
+              "description": "Site appearance: style.typography.body_mobile_line_height. See the configuration guide for behavior.",
+              "default": 1.85
+            },
+            "quote_size": {
+              "type": "string",
+              "description": "Site appearance: style.typography.quote_size. See the configuration guide for behavior.",
+              "default": "21px"
+            },
+            "quote_mobile_size": {
+              "type": "string",
+              "description": "Site appearance: style.typography.quote_mobile_size. See the configuration guide for behavior.",
+              "default": "19px"
+            },
+            "quote_line_height": {
+              "type": [
+                "number",
+                "string"
+              ],
+              "description": "Site appearance: style.typography.quote_line_height. See the configuration guide for behavior.",
+              "default": 1.65
+            }
+          }
+        },
+        "hero": {
+          "type": "object",
+          "description": "Site appearance: style.hero. See the configuration guide for behavior.",
+          "additionalProperties": false,
+          "properties": {
+            "title_size": {
+              "type": "string",
+              "description": "Site appearance: style.hero.title_size. See the configuration guide for behavior.",
+              "default": "clamp(72px, 7.5vw, 96px)"
+            },
+            "title_mobile_size": {
+              "type": "string",
+              "description": "Site appearance: style.hero.title_mobile_size. See the configuration guide for behavior.",
+              "default": "clamp(54px, 15vw, 76px)"
+            },
+            "title_small_size": {
+              "type": "string",
+              "description": "Site appearance: style.hero.title_small_size. See the configuration guide for behavior.",
+              "default": "clamp(48px, 15vw, 58px)"
+            },
+            "aside_indent": {
+              "type": "string",
+              "description": "Site appearance: style.hero.aside_indent. See the configuration guide for behavior.",
+              "default": "64px"
+            },
+            "image_width": {
+              "type": "string",
+              "description": "Site appearance: style.hero.image_width. See the configuration guide for behavior.",
+              "default": "min(68vw, 92svh, 980px)"
+            }
+          }
+        },
+        "variables": {
+          "type": "object",
+          "description": "Extra CSS custom properties without the leading --. Keys must be CSS identifiers.",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "properties": {}
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "description": "Browser interactions: motion. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Browser interactions: motion.enabled. See the configuration guide for behavior.",
+          "default": true
+        },
+        "page_transitions": {
+          "type": "boolean",
+          "description": "Browser interactions: motion.page_transitions. See the configuration guide for behavior.",
+          "default": true
+        }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "description": "Metadata and feed link: seo. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "Metadata and feed link: seo.image. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "twitter_card": {
+          "type": "string",
+          "description": "Metadata and feed link: seo.twitter_card. See the configuration guide for behavior.",
+          "default": "summary_large_image"
+        },
+        "noindex": {
+          "type": "boolean",
+          "description": "Metadata and feed link: seo.noindex. See the configuration guide for behavior.",
+          "default": false
+        },
+        "rss": {
+          "type": "string",
+          "description": "URL of an existing feed generated by a separate plugin.",
+          "default": ""
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "description": "UI translation overrides. Empty strings remove optional server-rendered wording; keep browser feedback labels nonempty.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {}
+    },
+    "custom": {
+      "type": "object",
+      "description": "Site-authored extensions: custom. See the configuration guide for behavior.",
+      "additionalProperties": false,
+      "properties": {
+        "css": {
+          "type": "array",
+          "description": "Ordered stylesheet URLs loaded after theme styles.",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "js": {
+          "type": "array",
+          "description": "Ordered script URLs loaded with defer.",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "head": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.head. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "body_start": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.body_start. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "body_end": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.body_end. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "before_content": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.before_content. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "after_content": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.after_content. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "after_about": {
+          "type": "string",
+          "description": "Site-authored extensions: custom.after_about. See the configuration guide for behavior.",
+          "default": ""
+        },
+        "after_post": {
+          "type": "string",
+          "description": "Trusted article-end HTML, controlled by the comments switch.",
+          "default": ""
+        }
+      }
+    }
+  }
+}

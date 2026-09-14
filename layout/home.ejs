@@ -1,0 +1,11 @@
+<% const h = cosmos().home; const image = cosmos_url(h.image.src); %>
+<section class="hero<%= image ? '' : ' hero-without-image' %>" aria-labelledby="hero-title">
+  <div class="hero-stage shell">
+    <% if (image) { %><figure class="hero-illustration"><img src="<%= image %>" alt="<%= h.image.alt %>" width="<%= h.image.width %>" height="<%= h.image.height %>" fetchpriority="high"></figure><% } %>
+    <div class="hero-copy">
+      <h1 id="hero-title"><span><%= h.title || config.title %></span><% if (h.aside) { %> <em><%= h.aside %></em><% } %></h1>
+      <% if (h.description) { %><p class="hero-description"><%= h.description %></p><% } %>
+      <% if (h.links.length) { %><nav class="hero-links" aria-label="<%= cx('explore') %>"><% cosmos_links(h.links).forEach(link => { %><a class="cover-link" href="<%= link.href %>"><%= link.label %><%- icon(link.icon || 'arrow') %></a><% }) %></nav><% } %>
+    </div>
+  </div>
+</section>

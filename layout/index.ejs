@@ -1,0 +1,17 @@
+<% const c = cosmos(); const l = c.listing; const hasAside = Boolean(l.aside || l.aside_note); %>
+<section class="index-page shell<%= hasAside ? '' : ' without-listing-aside' %>">
+  <header class="index-heading"><h1><%= cosmos_listing_title() %><% if (l.title_period) { %><span class="small-dot">.</span><% } %></h1></header>
+  <% if (l.categories || c.search.enabled) { %>
+  <div class="index-tools">
+    <% if (l.categories) { %><nav class="topic-nav" aria-label="<%= cx('filter_topics') %>"><a href="<%= cosmos_route('blog') %>" <%- !page.category && !page.tag && !page.archive ? 'aria-current="page"' : '' %>><%= l.title || cx('all_writing') %><% if (l.counts) { %> <span><%= site.posts.length %></span><% } %></a><% site.categories.sort('name').forEach(category => { %><a href="<%= url_for(category.path) %>" <%- page.category === category.name ? 'aria-current="page"' : '' %>><%= category.name %></a><% }) %></nav><% } %>
+    <% if (c.search.enabled) { %><form class="search-form" role="search" id="search"><label for="post-search" class="sr-only"><%= cx('search') %></label><%- icon('search') %><input id="post-search" type="search" placeholder="<%= cx('search_placeholder') %>" autocomplete="off" name="q"><button class="clear-search" type="button" aria-label="<%= cx('clear_search') %>" hidden><%- icon('close') %></button></form><% } %>
+  </div>
+  <% } %>
+  <% if (c.search.enabled) { %><p class="search-status" role="status" hidden></p><div class="search-results" hidden></div><% } %>
+  <div class="index-layout" data-default-list>
+    <% if (hasAside) { %><aside class="index-aside"><% if (l.aside) { %><p><%= l.aside %></p><% } %><% if (l.aside_note) { %><span><%= l.aside_note %></span><% } %></aside><% } %>
+    <div class="entries"><% if (page.posts?.length) { page.posts.forEach(post => { %><%- partial('_partial/entry',{post}) %><% }) } else { %><p class="empty-message"><%= cx('empty') %></p><% } %></div>
+  </div>
+  <% if (page.total > 1) { %><nav class="pagination" aria-label="<%= cx('pagination') %>" data-default-pagination><%- paginator({prev_text:cx('previous'),next_text:cx('next'),mid_size:1,end_size:1}) %></nav><% } %>
+  <% if (l.signoff) { %><p class="index-signoff"><%= l.signoff %></p><% } %>
+</section>

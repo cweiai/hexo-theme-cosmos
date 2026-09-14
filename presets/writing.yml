@@ -1,0 +1,19 @@
+home:
+  mode: blog
+listing:
+  title: Writing
+  title_period: false
+  excerpts: true
+  excerpt_length: 180
+post:
+  updated: true
+  toc_numbers: true
+style:
+  layout:
+    prose_width: 70ch
+  typography:
+    body_size: 18px
+navigation:
+  - { route: blog, label: Writing }
+  - { route: archives }
+  - { route: about }

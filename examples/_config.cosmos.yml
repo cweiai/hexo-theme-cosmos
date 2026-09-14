@@ -1,0 +1,29 @@
+# All names and entries in this example are fictional demonstration content.
+brand:
+  title: Example Notebook
+home:
+  title: An open
+  aside: notebook.
+about:
+  title: About
+  aside: A little background.
+  file: _content/about.md
+  profile:
+    name: Example Author
+    facts:
+      - { label: Based in, value: Example City }
+    email: ''
+    contacts: []
+
+pages:
+  custom:
+    - path: projects
+      title: Projects
+      file: _content/projects.md
+navigation:
+  - { route: home }
+  - { route: about }
+  - { route: blog }
+  - { route: archives }
+  - { route: categories }
+  - { route: tags }

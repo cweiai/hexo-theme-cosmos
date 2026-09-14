@@ -1,0 +1,31 @@
+{
+  "project": "https://github.com/tabler/tabler-icons",
+  "revision": "55f87a73f45cf1d9eaf16d7da705065483a9e4f9",
+  "icons": {
+    "github": "brand-github",
+    "linkedin": "brand-linkedin",
+    "x": "brand-x",
+    "wechat": "brand-wechat",
+    "qq": "brand-qq",
+    "weibo": "brand-weibo",
+    "zhihu": "brand-zhihu",
+    "bilibili": "brand-bilibili",
+    "youtube": "brand-youtube",
+    "instagram": "brand-instagram",
+    "facebook": "brand-facebook",
+    "tiktok": "brand-tiktok",
+    "threads": "brand-threads",
+    "telegram": "brand-telegram",
+    "discord": "brand-discord",
+    "bluesky": "brand-bluesky",
+    "mastodon": "brand-mastodon",
+    "email": "mail",
+    "website": "world",
+    "custom": "link",
+    "xiaohongshu": "book-2"
+  },
+  "notes": {
+    "douyin": "Uses the TikTok mark.",
+    "xiaohongshu": "Uses the generic book-2 symbol, not a Xiaohongshu brand logo."
+  }
+}

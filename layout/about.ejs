@@ -1,0 +1,8 @@
+<% const a = cosmos_about(); const sidebar = Boolean(a.sidebar_html) || a.profile.enabled; %>
+<section class="about-page shell">
+  <% if (a.header) { %><header class="about-heading"><% if (a.header_html) { %><%- a.header_html %><% } else { %><h1><%= a.title || page.title || cx('about') %><% if (a.aside) { %><br><em><%= a.aside %></em><% } %></h1><% if (a.introduction) { %><p><%= a.introduction %></p><% } %><% } %></header><% } %>
+  <div class="about-layout<%= sidebar ? '' : ' without-profile' %>">
+    <% if (a.sidebar_html) { %><aside class="profile-margin"><%- a.sidebar_html %></aside><% } else if (a.profile.enabled) { %><%- partial('_partial/profile', { profile:a.profile }) %><% } %>
+    <article class="prose" data-reading-content><%- page.content || '' %><%- cosmos().custom.after_about %></article>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem with Cosmos.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Read https://github.com/cweiai/hexo-theme-cosmos/blob/main/docs/usage.md#faq first. Remove account identifiers and credentials from shared configuration.
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Cosmos, Hexo, Node.js, npm, operating system, and browser versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Exact commands, a minimal post, relevant settings, and steps from a clean site.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and screenshots
+      description: Include Hexo build output or browser errors, and a screenshot if the problem is visual.

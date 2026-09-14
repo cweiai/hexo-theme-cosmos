@@ -1,0 +1,14 @@
+<% const l = cosmos().listing; %>
+<article class="entry">
+  <div class="entry-content">
+    <h3><a class="entry-title" href="<%= url_for(post.path) %>" data-entry="<%= entry_key(post) %>"><%= post.title %></a></h3>
+    <% if (l.excerpts && excerpt_text(post,l.excerpt_length)) { %><p><%= excerpt_text(post,l.excerpt_length) %></p><% } %>
+    <% if (l.category || l.date || l.reading_time || post.demo) { %><div class="entry-meta">
+      <% if (l.category) { %><span class="entry-topic"><%= post_topic(post) %></span><% } %>
+      <% if (l.date) { %><time datetime="<%= date_xml(post.date) %>"><%= date(post.date,config.date_format) %></time><% } %>
+      <% if (l.reading_time) { %><span><%= reading_minutes(post) %> <%= cx('min_read') %></span><% } %>
+      <% if (post.demo) { %><span class="demo-note"><%= cx('demo') %></span><% } %>
+    </div><% } %>
+  </div>
+  <span class="entry-arrow" aria-hidden="true"><%- icon('diagonal') %></span>
+</article>

@@ -1,0 +1,35 @@
+<% const p = cosmos_post(); const hasAside = p.toc || p.reading_note; %>
+<% if (p.progress) { %><div class="reading-progress" aria-hidden="true"><span></span></div><% } %>
+<article class="article-page shell<%= hasAside ? '' : ' without-toc' %>">
+  <header class="article-heading">
+    <% if (p.back_link) { %><a class="link article-back" href="<%= cosmos_route('blog') %>"><%- icon('back') %><%= cx('back_blog') %></a><% } %>
+    <h1 data-entry="<%= entry_key(page) %>"><%= page.title %></h1>
+    <% if (p.description && page.description) { %><p class="article-deck"><%= page.description %></p><% } %>
+    <% if (p.author || p.date || p.updated || p.categories || p.reading_time || page.demo) { %><div class="entry-meta">
+      <% if (p.author && (page.author || config.author)) { %><span><%= cx('by') %> <%= page.author || config.author %></span><% } %>
+      <% if (p.date) { %><time datetime="<%= date_xml(page.date) %>"><%= date(page.date,config.date_format) %></time><% } %>
+      <% if (p.updated && page.updated) { %><span><%= cx('updated') %> <time datetime="<%= date_xml(page.updated) %>"><%= date(page.updated,config.date_format) %></time></span><% } %>
+      <% if (p.categories) { page.categories.forEach(item => { %><a href="<%= url_for(item.path) %>"><%= item.name %></a><% }) } %>
+      <% if (p.reading_time) { %><span><%= reading_minutes(page) %> <%= cx('min_read') %></span><% } %>
+      <% if (page.demo) { %><span class="demo-note"><%= cx('demo') %></span><% } %>
+    </div><% } %>
+  </header>
+  <div class="article-layout">
+    <% if (hasAside) { %><aside class="article-margin">
+      <% if (p.toc) { %><nav class="contents" aria-label="<%= cx('contents') %>"><h2><%= cx('contents') %></h2><%- toc(page.content,{list_number:p.toc_numbers,max_depth:p.toc_depth}) %></nav><% } %>
+      <% if (p.reading_note) { %><span class="reading-note"><%= p.reading_note %></span><% } %>
+    </aside><% } %>
+    <div class="article-body">
+      <div class="prose" data-reading-content><%- page.content %></div>
+      <% if (p.signoff || (p.tags && page.tags.length)) { %><div class="article-end">
+        <% if (p.signoff) { %><p><%= p.signoff %></p><% } %>
+        <% if (p.tags && page.tags.length) { %><div class="tag-list"><% page.tags.forEach(tag => { %><a href="<%= url_for(tag.path) %>">#<%= tag.name %></a><% }) %></div><% } %>
+      </div><% } %>
+      <% if (p.comments) { %><%- cosmos().custom.after_post %><% } %>
+      <% if (p.navigation && (page.prev || page.next)) { %><nav class="entry-pagination" aria-label="<%= cx('adjacent') %>">
+        <% if (page.prev) { %><a href="<%= url_for(page.prev.path) %>"><span><%= cx('newer') %></span><strong><%= page.prev.title %></strong><%- icon('back') %></a><% } %>
+        <% if (page.next) { %><a class="entry-older" href="<%= url_for(page.next.path) %>"><span><%= cx('older') %></span><strong><%= page.next.title %></strong><%- icon('arrow') %></a><% } %>
+      </nav><% } %>
+    </div>
+  </div>
+</article>

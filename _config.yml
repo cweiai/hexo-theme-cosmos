@@ -1,0 +1,185 @@
+# Override settings in the Hexo site's _config.cosmos.yml.
+# Empty arrays replace defaults. Empty profile entries stay hidden.
+brand:
+  title: '' # Falls back to the site's title.
+  aside: '' # An optional italic ending to the brand.
+  favicon: ''
+
+home:
+  mode: cover # cover | blog
+  header: false
+  footer: false
+  title: An open
+  aside: notebook.
+  description: ''
+  image:
+    src: ''
+    alt: ''
+    width: 1254
+    height: 1254
+  links:
+    - { route: blog, label: '', icon: arrow }
+    - { route: about, label: '', icon: diagonal }
+
+routes:
+  blog: blog # Used in cover mode if index_generator.path is empty.
+  about: about
+
+navigation:
+  - { route: home, label: '' }
+  - { route: about, label: '' }
+  - { route: blog, label: '' }
+  - { route: archives, label: '' }
+
+pages:
+  about: true
+  categories: true
+  tags: true
+  not_found: true
+  custom: [] # [{ path: projects, title: Projects, file: _content/projects.md }]
+
+about:
+  header: true
+  header_html: '' # Replaces the entire title area with trusted HTML.
+  sidebar_html: '' # Replaces the configured profile with trusted HTML.
+  title: '' # Localized About title when empty.
+  aside: ''
+  introduction: ''
+  content: '' # Markdown or HTML for the generated About page.
+  file: '' # Relative to the site's source directory, e.g. _content/about.md.
+  profile:
+    enabled: true
+    name: '' # Falls back to the site's author.
+    avatar: ''
+    avatar_alt: ''
+    facts: [] # [{ label: Based in, value: Your city }]
+    email: ''
+    contacts:
+      - { label: GitHub, url: '' }
+      - { label: LinkedIn, url: '' }
+      - { label: X, url: '' }
+      - { label: WeChat, value: '' }
+      - { label: QQ, value: '' }
+      - { label: Weibo, url: '' }
+      - { label: Zhihu, url: '' }
+      - { label: Bilibili, url: '' }
+      - { label: Xiaohongshu, url: '' }
+      - { label: Douyin, url: '' }
+      - { label: YouTube, url: '' }
+      - { label: Instagram, url: '' }
+      - { label: Facebook, url: '' }
+      - { label: TikTok, url: '' }
+      - { label: Threads, url: '' }
+      - { label: Telegram, url: '' }
+      - { label: Discord, url: '' }
+      - { label: Bluesky, url: '' }
+      - { label: Mastodon, url: '' }
+      - { label: Website, url: '' }
+
+listing:
+  title: ''
+  title_period: true
+  categories: true
+  counts: true
+  excerpts: true
+  excerpt_length: 150
+  date: true
+  category: true
+  reading_time: true
+  aside: ''
+  aside_note: ''
+  signoff: ''
+
+post:
+  back_link: true
+  description: true
+  author: true
+  date: true
+  updated: false
+  categories: false
+  reading_time: true
+  toc: true
+  toc_depth: 3
+  toc_numbers: false
+  reading_note: ''
+  progress: true
+  copy_code: true
+  tags: true
+  signoff: '' # Empty hides the closing message.
+  navigation: true
+  comments: true # Displays custom.after_post HTML unless comments:false on a post.
+
+search:
+  enabled: true
+  path: search.json
+  limit: 30
+
+footer:
+  enabled: true
+  copyright: true
+  since: ''
+  author: '' # Falls back to the site's author.
+  back_to_top: true
+  text: ''
+  links: []
+
+style:
+  colors:
+    paper: '#f4eedf'
+    paper_low: '#eae1d0'
+    ink: '#342c24'
+    muted: '#6c6052'
+    accent: '#a6402c'
+    honey: '#eccc77'
+    rule: '#d4c7b1'
+  fonts:
+    sans: '"Hanken Grotesk", "PingFang SC", "Microsoft YaHei", sans-serif'
+    serif: 'Petrona, "Songti SC", "Noto Serif CJK SC", Georgia, serif'
+    preload: true
+  layout:
+    max_width: 1280px
+    prose_width: none # 70ch for a narrower reading column.
+    profile_width: 270px
+    about_gap: 108px
+    toc_width: 230px
+    article_gap: 72px
+  typography:
+    body_size: 17px
+    body_mobile_size: 16px
+    body_line_height: 1.9
+    body_mobile_line_height: 1.85
+    quote_size: 21px
+    quote_mobile_size: 19px
+    quote_line_height: 1.65
+  hero:
+    title_size: 'clamp(72px, 7.5vw, 96px)'
+    title_mobile_size: 'clamp(54px, 15vw, 76px)'
+    title_small_size: 'clamp(48px, 15vw, 58px)'
+    aside_indent: 64px
+    image_width: 'min(68vw, 92svh, 980px)'
+  variables: {} # Additional CSS custom properties, e.g. { ease: 'ease-out' }.
+
+motion:
+  enabled: true
+  page_transitions: true
+
+seo:
+  image: ''
+  twitter_card: summary_large_image
+  noindex: false
+  rss: '' # Feed URL supplied by an optional feed plugin.
+
+# A map of localization keys. Empty strings intentionally hide optional copy.
+labels: {}
+
+# Trusted site-author code, never visitor input. Local asset URLs respect root.
+custom:
+  css: []
+  js: []
+  head: ''
+  body_start: ''
+  body_end: ''
+  before_content: ''
+  after_content: ''
+  after_about: ''
+  after_post: ''

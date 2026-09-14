@@ -1,0 +1,31 @@
+# Merge this into your site's _config.cosmos.yml, then supply your own content.
+home:
+  mode: cover
+  header: false
+  footer: false
+  description: ''
+  links:
+    - { route: blog, label: Post, icon: arrow }
+    - { route: about, label: About, icon: diagonal }
+navigation:
+  - { route: home, label: Home }
+  - { route: about, label: About Me }
+  - { route: blog, label: Blog Posts }
+about:
+  introduction: ''
+listing:
+  title: All writing
+  title_period: true
+  aside: "Ideas tend to find\neach other here."
+  aside_note: Newest pages first.
+  signoff: Not every thought is finished. That’s part of the point.
+post:
+  reading_note: "A quiet moment\nto read."
+  signoff: Thanks for reading.
+  categories: false
+  updated: false
+footer:
+  copyright: true
+  back_to_top: true
+  links: []
+  text: ''

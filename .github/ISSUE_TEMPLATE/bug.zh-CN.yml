@@ -1,0 +1,32 @@
+name: 报告问题（简体中文）
+description: 报告可复现的 Cosmos 问题。
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请先阅读 https://github.com/cweiai/hexo-theme-cosmos/blob/main/docs/usage.zh-CN.md#常见问题 。分享配置前移除账号标识和凭据。
+  - type: input
+    id: versions
+    attributes:
+      label: 版本信息
+      description: Cosmos、Hexo、Node.js、npm、操作系统和浏览器版本。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 最小复现
+      description: 具体命令、最小文章、相关配置及从干净站点开始的复现步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志和截图
+      description: 附 Hexo 构建输出或浏览器错误，视觉问题请附截图。

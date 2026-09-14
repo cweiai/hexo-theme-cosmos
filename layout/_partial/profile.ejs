@@ -1,0 +1,24 @@
+<%
+const text = value => value == null ? '' : String(value).trim();
+const name = text(profile.name) || config.author;
+const email = text(profile.email);
+const facts = (profile.facts || []).filter(item => item?.label && item?.value);
+const contacts = (profile.contacts || []).filter(item => item?.label).map(item => ({...item, url:cosmos_url(item.url), icon:item.icon || item.label})).filter(item => item.url || item.value);
+if (email) contacts.unshift({label:cx('email'),value:email,url:cosmos_url(`mailto:${email}`),icon:'email'});
+%>
+<aside class="profile-margin"<% if (name) { %> aria-labelledby="profile-name"<% } %>>
+  <% if (cosmos_url(profile.avatar)) { %><img class="profile-avatar" src="<%= cosmos_url(profile.avatar) %>" alt="<%= profile.avatar_alt || name %>" width="160" height="160"><% } %>
+  <% if (name) { %><h2 class="profile-name" id="profile-name"><%= name %></h2><% } %>
+  <% if (facts.length) { %><dl class="profile-facts"><% facts.forEach(item => { %><div><dt><%= item.label %></dt><dd><%= item.value %></dd></div><% }) %></dl><% } %>
+  <% if (contacts.length) { %>
+  <ul class="profile-contacts" aria-label="<%= cx('contacts') %>">
+    <% contacts.forEach(item => { %><li>
+      <% if (item.url) { %><a class="profile-contact-row" href="<%= item.url %>"<% if (/^https?:\/\//i.test(item.url)) { %> target="_blank" rel="noopener noreferrer"<% } %>><% } else { %><div class="profile-contact-row"><% } %>
+        <%- profile_icon(item.icon) %>
+        <span class="profile-contact-text"><span class="profile-contact-label"><%= item.label %></span><% if (item.value) { %><span class="profile-contact-value"><%= item.value %></span><% } %></span>
+        <% if (item.url) { %><%- icon('diagonal') %><% } %>
+      <% if (item.url) { %></a><% } else { %></div><% } %>
+    </li><% }) %>
+  </ul>
+  <% } %>
+</aside>

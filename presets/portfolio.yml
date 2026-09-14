@@ -1,0 +1,23 @@
+home:
+  mode: cover
+  title: Selected
+  aside: work.
+  description: Projects, notes, and a little background.
+  links:
+    - { url: /projects/, label: Projects, icon: diagonal }
+    - { route: about }
+navigation:
+  - { url: /projects/, label: Projects }
+  - { route: blog, label: Notes }
+  - { route: about }
+pages:
+  custom:
+    - path: projects
+      title: Projects
+      content: '<h2>Selected work</h2><p>Describe a project, its outcome, and your contribution here.</p>'
+about:
+  profile:
+    enabled: false
+style:
+  layout:
+    prose_width: 75ch

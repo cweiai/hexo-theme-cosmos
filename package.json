@@ -1,0 +1,82 @@
+{
+  "name": "hexo-theme-cosmos",
+  "version": "1.0.0",
+  "description": "A configurable editorial Hexo theme with warm colors, asymmetric layouts, and a quiet reading experience.",
+  "license": "MIT",
+  "keywords": [
+    "hexo",
+    "hexo-theme",
+    "cosmos",
+    "blog",
+    "editorial",
+    "responsive"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "_config.yml",
+    "layout",
+    "scripts",
+    "lib",
+    "languages",
+    "source",
+    "assets/social-icons",
+    "docs/configuration.md",
+    "docs/configuration.zh-CN.md",
+    "docs/content.md",
+    "docs/content.zh-CN.md",
+    "docs/usage.md",
+    "docs/usage.zh-CN.md",
+    "docs/license.md",
+    "docs/license.zh-CN.md",
+    "docs/theme.schema.json",
+    "docs/images/*.png",
+    "presets/*.yml",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "THIRD_PARTY_NOTICES.zh-CN.md",
+    "!layout/**/README*.md",
+    "!scripts/**/README*.md",
+    "!lib/**/README*.md",
+    "!languages/**/README*.md",
+    "!source/**/README*.md",
+    "!assets/**/README*.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.cjs",
+    "docs:check": "node tools/reference.cjs --check && node tools/check-docs.cjs",
+    "docs:reference": "node tools/reference.cjs",
+    "check:package": "node tools/check-package.cjs",
+    "check": "npm test && npm run docs:check",
+    "theme:pack": "node tools/package.cjs"
+  },
+  "dependencies": {
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^4.0.0",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-marked": "^7.0.0",
+    "hexo-util": "^4.0.0"
+  },
+  "peerDependencies": {
+    "hexo": ">=7 <9"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "hexo": "8.1.2",
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cweiai/hexo-theme-cosmos.git"
+  },
+  "homepage": "https://github.com/cweiai/hexo-theme-cosmos#readme",
+  "bugs": {
+    "url": "https://github.com/cweiai/hexo-theme-cosmos/issues"
+  }
+}

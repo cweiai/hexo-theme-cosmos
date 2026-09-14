@@ -1,0 +1,6 @@
+<% const collection = kind === 'categories' ? site.categories : site.tags; %>
+<section class="taxonomy-page shell">
+  <header class="index-heading"><h1><%= page.title || cx(kind) %><% if (cosmos().listing.title_period) { %><span class="small-dot">.</span><% } %></h1></header>
+  <% if (page.content) { %><div class="prose"><%- page.content %></div><% } %>
+  <% if (collection.length) { %><ul class="taxonomy-list"><% collection.sort('name').forEach(item => { %><li><a href="<%= url_for(item.path) %>"><span><%= item.name %></span><% if (cosmos().listing.counts) { %><span class="taxonomy-count"><%= item.length %></span><% } %><%- icon('diagonal') %></a></li><% }) %></ul><% } else { %><p class="empty-message"><%= cx('empty') %></p><% } %>
+</section>

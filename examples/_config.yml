@@ -1,0 +1,28 @@
+title: Example Notebook
+author: Example Author
+description: A demonstration of the Cosmos theme.
+url: http://localhost:4001
+root: /
+language: en
+timezone: UTC
+theme: cosmos
+permalink: :year/:month/:day/:title/
+pretty_urls:
+  trailing_index: false
+  trailing_html: false
+index_generator:
+  path: blog
+  per_page: 2
+  order_by: -date
+per_page: 2
+archive_generator:
+  yearly: true
+  monthly: true
+  per_page: 2
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  wrap: true
+  hljs: false
+marked:
+  breaks: false

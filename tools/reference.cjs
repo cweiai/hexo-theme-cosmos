@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const yaml = require('js-yaml');
 const root = path.resolve(__dirname, '..');
+const normalizeLineEndings = value => value.replace(/\r\n/g, '\n');
 const defaults = yaml.load(fs.readFileSync(path.join(root, '_config.yml'), 'utf8'));
 const scopes = {
   brand: 'Header and metadata', home: 'Cover homepage', routes: 'Generated routes', navigation: 'Header navigation',
@@ -117,7 +118,7 @@ function reference(language) {
 
 const guides = ['en', 'zh-CN'].map(language => {
   const name = language === 'en' ? 'configuration.md' : 'configuration.zh-CN.md';
-  const guide = fs.readFileSync(path.join(root, 'docs', name), 'utf8');
+  const guide = normalizeLineEndings(fs.readFileSync(path.join(root, 'docs', name), 'utf8'));
   const marker = /<!-- cosmos:defaults:start -->[\s\S]*?<!-- cosmos:defaults:end -->/;
   if (!marker.test(guide)) throw new Error(`${name} is missing its defaults markers.`);
   return [name, guide.replace(marker, `<!-- cosmos:defaults:start -->\n\n${reference(language)}<!-- cosmos:defaults:end -->`)];
@@ -133,7 +134,7 @@ try {
   for (const [name, value] of [...guides, ['theme.schema.json', JSON.stringify(definition, null, 2) + '\n']]) {
     const target = path.join(root, 'docs', name);
     if (process.argv.includes('--check')) {
-      if (!fs.existsSync(target) || fs.readFileSync(target, 'utf8') !== value) throw new Error(`${name} is stale. Run npm run docs:reference.`);
+      if (!fs.existsSync(target) || normalizeLineEndings(fs.readFileSync(target, 'utf8')) !== value) throw new Error(`${name} is stale. Run npm run docs:reference.`);
     } else fs.writeFileSync(target, value);
   }
   console.log(`[Cosmos] Configuration reference and schema ${process.argv.includes('--check') ? 'are current' : 'generated'}.`);

@@ -33,6 +33,38 @@ post_options:
 
 使用 `<!-- more -->` 标记摘要，或用 `description` 指定自定义摘要。`demo: true` 添加演示内容标记。`noindex: true` 添加 robots 指令，并将文章排除在本地搜索之外；它不是访问控制。草稿和未来日期文章遵循标准 Hexo 设置。源文章或页面的 HTML 包含类似模板的文本时，可用 `{% raw %}` / `{% endraw %}` 包裹。
 
+### 无标题文章
+
+文章标题缺失、为空或仅有空白时，会按文章语言显示 `Untitled` 或 `无标题`。文章标题、文档元数据、所有文章列表、相邻文章导航和本地搜索使用相同的回退文字。已填写的非空标题和文章 URL 保持原样。可在主题覆盖配置中用 `labels.untitled` 自定义文字。
+
+### 图片图库
+
+在 Hexo 头部配置中使用 `photos`，即可在正文前按顺序纵向显示图片：
+
+```yaml
+photos:
+  - /images/notebook.jpg
+  - /images/sketch.jpg
+```
+
+本地路径遵循博客的 `root`，也支持 HTTP(S) URL。空列表不会生成图库。可执行协议、data、协议相对地址、邮箱、电话和片段链接会被忽略。图片保持原始比例并适应阅读栏宽度，无需 JavaScript。
+
+Hexo 将 `photos` 存为 URL 字符串列表。图库图片的替代文字由 `labels.photo` 加序号生成。若要为每张图片提供描述性的替代文字或说明，请改用正文中的 Markdown 图片，例如 `![一棵树的铅笔素描](/images/sketch.jpg)`。
+
+### 代码行标记
+
+使用 Hexo 的 `highlight.js` 高亮器时，`mark` 选项会用主题的蜂蜜色和强调色突出指定代码行：
+
+```text
+{% codeblock lang:js mark:1,3 %}
+const first = 1;
+const second = 2;
+const total = first + second;
+{% endcodeblock %}
+```
+
+该样式作用于 Hexo 生成的 `.line.marked`，不会改变代码文字，也不会把行号加入复制结果。
+
 ## About 的两种编写方式
 
 1. **自动页面：**在 `_config.cosmos.yml` 填写 `about.content`，或设置 `about.file: _content/about.md`。下划线目录可防止片段同时生成独立页面。支持普通 Markdown 和 HTML。配置或文件片段直接渲染；需要 Hexo 标签插件语法时，使用普通的 `source/about/index.md` 页面。

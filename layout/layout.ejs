@@ -2,7 +2,7 @@
 const c = cosmos();
 const cover = page.journal_home === true;
 const aboutPage = page.layout === 'about' || page.cosmos_kind === 'about';
-const title = cover ? config.title : `${page.title || (page.posts ? cosmos_listing_title() : config.title)} — ${config.title}`;
+const title = cover ? config.title : `${is_post() ? entry_title(page) : page.title || (page.posts ? cosmos_listing_title() : config.title)} — ${config.title}`;
 const description = page.description || (is_post() ? excerpt_text(page) : config.description);
 const showHeader = !cover || c.home.header;
 const showFooter = c.footer.enabled && (!cover || c.home.footer);

@@ -153,6 +153,8 @@ Place that CSS at `source/css/my-theme.css`. It loads after theme CSS and settin
 
 Set site `language: en` or `zh-CN`. All built-in UI strings, including search and code-copy feedback, come from `languages/`. Override individual keys in `labels`, for example `labels: {blog: Journal, back_blog: Back to writing}`. Front-matter `lang` can override a page's UI language. Custom navigation labels and author content are displayed exactly as supplied.
 
+Untitled posts use `labels.untitled` (English `Untitled`, Chinese `无标题`) in headings, metadata, listings, adjacent-post links, and search. The fallback follows the post's language. Keep this label nonempty so these links remain readable. Gallery images use `labels.photo` with a `{number}` placeholder, for example `labels: {untitled: Untitled note, photo: 'Image {number}'}`. See [article content](content.md#posts-and-ordinary-pages) for gallery and code-block syntax.
+
 `custom.css` and `custom.js` are ordered URL arrays. Scripts load with `defer`. The raw HTML slots `head`, `body_start`, `body_end`, `before_content`, `after_content`, `after_about`, and `after_post` are empty by default. `after_post` respects the comments switch, so it can host a comments widget. Use Hexo's native injector API from a site plugin if you prefer programmatic insertion.
 
 These slots intentionally execute trusted code written by the site owner. Never populate them with untrusted visitor input. Metadata and ordinary config text are escaped separately. No external analytics, comment platform, font CDN, or account identifier is enabled by default.

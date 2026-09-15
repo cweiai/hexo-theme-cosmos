@@ -21,6 +21,10 @@ function dictionary(context) { return { ...english, ...(/^zh(?:-|$)/i.test(langu
 function translate(context, key, values = {}) {
   return String(dictionary(context)[key] ?? key).replace(/\{(\w+)\}/g, (match, name) => values[name] ?? match);
 }
+function entryTitle(post) {
+  const title = String(post.title ?? '');
+  return title.trim() ? title : translate({ page:post }, 'untitled');
+}
 function blogPath() { return String(hexo.config.index_generator.path || '').replace(/^\/+|\/+$/g, ''); }
 function routes() {
   const c = get();
@@ -96,6 +100,13 @@ hexo.extend.helper.register('reading_minutes', post => {
   return Math.max(1, Math.ceil(words/220 + cjk/400));
 });
 hexo.extend.helper.register('post_topic', function (post) { return post.categories?.length ? post.categories.first().name : translate(this,'notes'); });
+hexo.extend.helper.register('entry_title', entryTitle);
+hexo.extend.helper.register('post_photos', function (post) {
+  return (Array.isArray(post.photos) ? post.photos : [])
+    .map(value => typeof value === 'string' ? this.cosmos_url(value) : '')
+    .filter(src => src && !/^(mailto:|tel:|#)/i.test(src))
+    .map((src, index) => ({ src, alt:translate(this, 'photo', { number:index + 1 }) }));
+});
 hexo.extend.helper.register('entry_key', post => `entry-${Buffer.from(post.path || '').toString('hex')}`);
 hexo.extend.helper.register('icon', name => {
   const paths = {
@@ -138,7 +149,7 @@ hexo.extend.generator.register('cosmos-search', locals => {
   const c = get();
   if (!c.search.enabled) return [];
   return { path:core.path(c.search.path), data:JSON.stringify(locals.posts.filter(post => post.search !== false && !post.noindex).sort('-date').map(post => ({
-    title:post.title, path:post.path, key:`entry-${Buffer.from(post.path).toString('hex')}`,
+    title:entryTitle(post), path:post.path, key:`entry-${Buffer.from(post.path).toString('hex')}`,
     description:plain(post.description || post.excerpt || post.content).slice(0,c.listing.excerpt_length),
     content:plain(post.content), topic:post.categories.length ? post.categories.first().name : translate(null,'notes'),
     tags:post.tags.map(tag => tag.name), date:post.date.format(hexo.config.date_format), demo:Boolean(post.demo)

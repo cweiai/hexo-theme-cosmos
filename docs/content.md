@@ -33,6 +33,38 @@ post_options:
 
 Use `<!-- more -->` for an excerpt, or `description` for a custom summary. `demo: true` adds an explicit demonstration label. `noindex: true` adds a robots directive and excludes the post from local search; it is not access control. Drafts and future publishing follow standard Hexo settings. For raw HTML with template-like text, use `{% raw %}` / `{% endraw %}` in source posts/pages.
 
+### Untitled posts
+
+Missing, empty, and whitespace-only post titles display as `Untitled` or `无标题`, following the post's language. This applies to the article heading, document metadata, all post lists, adjacent-post navigation, and local search. Nonempty authored titles and post URLs stay unchanged. Customize the fallback with `labels.untitled` in the theme overrides.
+
+### Photo galleries
+
+Use Hexo's `photos` front matter to display an ordered column of images before the article body:
+
+```yaml
+photos:
+  - /images/notebook.jpg
+  - /images/sketch.jpg
+```
+
+Local paths follow the blog's `root`; HTTP(S) URLs are also supported. Empty lists add no gallery. Executable, data, protocol-relative, mail, telephone, and fragment URLs are omitted. Images retain their proportions and fit the reading column without JavaScript.
+
+Hexo stores `photos` as URL strings. Gallery images receive numbered alternative text from `labels.photo`. For descriptive alternative text or captions for each image, use Markdown images in the article body instead, such as `![A pencil sketch of a tree](/images/sketch.jpg)`.
+
+### Marked code lines
+
+With Hexo's `highlight.js` highlighter, the `mark` option highlights selected code lines using the theme's honey and accent colors:
+
+```text
+{% codeblock lang:js mark:1,3 %}
+const first = 1;
+const second = 2;
+const total = first + second;
+{% endcodeblock %}
+```
+
+This styles Hexo's `.line.marked` output. It does not change the code text or add line numbers to copied code.
+
 ## Two native ways to author About
 
 1. **Automatic page:** fill `about.content` or `about.file: _content/about.md` in `_config.cosmos.yml`. The underscore folder keeps a content fragment from also becoming a standalone page. Plain Markdown and HTML are accepted. Configuration/file fragments are rendered directly; Hexo tag-plugin syntax belongs in a normal `source/about/index.md` page instead.

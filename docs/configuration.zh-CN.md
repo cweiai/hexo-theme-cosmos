@@ -153,6 +153,8 @@ custom:
 
 设置博客 `language: en` 或 `zh-CN`。内置界面文字（包括搜索和代码复制反馈）来自 `languages/`。可在 `labels` 中覆盖单个键，例如 `labels: {blog: Journal, back_blog: Back to writing}`。页面头部的 `lang` 可以覆盖当前页的界面语言。自定义导航标签和作者内容按原样显示。
 
+未填写标题的文章在标题、元数据、列表、相邻文章链接和搜索中使用 `labels.untitled`（英文为 `Untitled`，中文为 `无标题`），回退文字遵循文章的语言。请保留非空标签，让链接可读。图库图片使用带 `{number}` 占位符的 `labels.photo`，例如 `labels: {untitled: 未命名笔记, photo: '第 {number} 张图片'}`。图库和代码块语法见[文章内容](content.zh-CN.md#文章与普通页面)。
+
 `custom.css`、`custom.js` 是有序 URL 列表，脚本以 `defer` 加载。原始 HTML 插槽 `head`、`body_start`、`body_end`、`before_content`、`after_content`、`after_about`、`after_post` 默认均为空。`after_post` 遵循评论开关，可用于放置评论组件。需要通过代码插入内容时，可在站点插件中使用 Hexo 原生 injector API。
 
 这些插槽会执行站点作者提供的可信代码，不要填入不可信的访客输入。元数据和普通配置文字会单独转义。默认不开启外部统计、评论平台、字体 CDN 或账号标识。

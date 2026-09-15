@@ -170,6 +170,8 @@ seo:
   rss: '' # Feed URL supplied by an optional feed plugin.
 
 # A map of localization keys. Empty strings intentionally hide optional copy.
+# Use a nonempty labels.untitled to customize the fallback for untitled posts.
+# labels.photo uses {number} for the gallery image's position.
 labels: {}
 
 # Trusted site-author code, never visitor input. Local asset URLs respect root.

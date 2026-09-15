@@ -122,3 +122,73 @@ test('all About regions accept HTML, without a separate education configuration'
     assert.equal(defaults.about.education,undefined);
   } finally {await site.close();}
 });
+
+test('untitled posts keep usable titles across article, listing, navigation and search routes', async t => {
+  for (const [name, language, labels, postLanguage, expected] of [
+    ['English', 'en', {}, '', 'Untitled'],
+    ['Chinese', 'zh-CN', {}, '', '无标题'],
+    ['post language', 'en', {}, 'zh-CN', '无标题'],
+    ['label override', 'zh-CN', { untitled: 'Note <&>' }, '', 'Note <&>'],
+    ['explicit empty override', 'en', { untitled: '' }, '', '']
+  ]) {
+    await t.test(name, async () => {
+      const site = await build({ language, per_page: 10, index_generator: { per_page: 10 }, archive_generator: { per_page: 10 } }, { labels }, dir => {
+        fs.mkdirSync(path.join(dir, 'source/_posts'), { recursive: true });
+        for (const [slug, title, day] of [['named', 'A <named> & post', 5], ['missing', undefined, 4], ['blank', '   ', 3]]) {
+          const front = { date: `2024-06-0${day} 12:00:00`, categories: ['Notes'], tags: ['Writing'] };
+          if (title !== undefined) front.title = title;
+          if (postLanguage) front.lang = postLanguage;
+          fs.writeFileSync(path.join(dir, `source/_posts/${slug}.md`), `---\n${yaml.dump(front)}---\nBody for ${slug}.`);
+        }
+      }, false);
+      try {
+        const escaped = require('hexo-util').escapeHTML(expected);
+        for (const [slug, day] of [['missing', 4], ['blank', 3]]) {
+          const post = site.read(`2024/06/0${day}/${slug}/index.html`);
+          assert.ok(post.includes(`<title>${escaped} — Example Notebook</title>`));
+          assert.ok(post.includes(`property="og:title" content="${escaped} — Example Notebook"`));
+          assert.match(post, new RegExp(`<h1 data-entry="[^"]+">${escaped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h1>`));
+        }
+        for (const route of ['blog/index.html', 'archives/index.html', 'categories/Notes/index.html', 'tags/Writing/index.html']) {
+          const entries = [...site.read(route).matchAll(/class="entry-title"[^>]*>(.*?)<\/a>/g)].map(match => match[1]);
+          assert.deepEqual(entries, ['A &lt;named&gt; &amp; post', escaped, escaped], route);
+        }
+        assert.ok(site.read('2024/06/05/named/index.html').includes(`<strong>${escaped}</strong>`));
+        assert.ok(site.read('2024/06/03/blank/index.html').includes(`<strong>${escaped}</strong>`));
+        const search = JSON.parse(site.read('search.json'));
+        assert.deepEqual(search.map(post => post.title), ['A <named> & post', expected, expected]);
+        assert.ok(search.every(post => post.path && post.key));
+      } finally { await site.close(); }
+    });
+  }
+});
+
+test('front-matter photos render safely in order and respect the deployment root', async t => {
+  for (const root of ['/', '/notebook/']) {
+    await t.test(root, async () => {
+      const language = root === '/' ? 'en' : 'zh-CN';
+      const site = await build({ url: `https://example.org${root}`, root, language }, {}, dir => {
+        fs.mkdirSync(path.join(dir, 'source/_posts'), { recursive: true });
+        fs.mkdirSync(path.join(dir, 'source/images'), { recursive: true });
+        for (const name of ['first.svg', 'second.svg']) fs.writeFileSync(path.join(dir, 'source/images', name), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"></svg>');
+        const photos = ['/images/first.svg', 'images/second.svg', 'https://example.org/photo.jpg?q="paper"&size=2', '', null, 'javascript:alert(1)', 'data:image/svg+xml,unsafe', '//example.org/photo.jpg', 'mailto:hello@example.org', 'tel:123', '#fragment'];
+        for (const [slug, value] of [['gallery', photos], ['empty', []], ['single', '/images/first.svg'], ['legacy', '/images/first.svg']]) {
+          const front = { title: slug, date: '2024-06-01', [slug === 'legacy' ? 'photo' : 'photos']: value };
+          fs.writeFileSync(path.join(dir, `source/_posts/${slug}.md`), `---\n${yaml.dump(front)}---\nBody after the gallery.`);
+        }
+      }, false);
+      try {
+        const html = site.read('2024/06/01/gallery/index.html');
+        const gallery = html.match(/<div class="post-gallery">([\s\S]*?)<\/div>/)?.[1];
+        assert.ok(gallery, 'A gallery is rendered from front-matter photos');
+        assert.deepEqual([...gallery.matchAll(/src="([^"]+)"/g)].map(match => match[1]), [`${root}images/first.svg`, `${root}images/second.svg`, 'https://example.org/photo.jpg?q=&#34;paper&#34;&amp;size=2']);
+        assert.deepEqual([...gallery.matchAll(/alt="([^"]+)"/g)].map(match => match[1]), [1, 2, 3].map(number => `${language === 'en' ? 'Photo' : '图片'} ${number}`));
+        assert.equal((gallery.match(/loading="lazy"/g) || []).length, 3);
+        assert.ok(html.indexOf('class="post-gallery"') < html.indexOf('<p>Body after the gallery.</p>'));
+        assert.ok(!site.read('2024/06/01/empty/index.html').includes('class="post-gallery"'));
+        assert.ok(site.read('2024/06/01/single/index.html').includes(`src="${root}images/first.svg"`));
+        assert.ok(site.read('2024/06/01/legacy/index.html').includes(`src="${root}images/first.svg"`));
+      } finally { await site.close(); }
+    });
+  }
+});

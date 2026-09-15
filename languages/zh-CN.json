@@ -7,6 +7,8 @@
   "tags": "标签",
   "all_writing": "所有文章",
   "notes": "随笔",
+  "untitled": "无标题",
+  "photo": "图片 {number}",
   "explore": "探索",
   "main_navigation": "主导航",
   "open_navigation": "打开导航",

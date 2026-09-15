@@ -1,7 +1,7 @@
 <% const l = cosmos().listing; %>
 <article class="entry">
   <div class="entry-content">
-    <h3><a class="entry-title" href="<%= url_for(post.path) %>" data-entry="<%= entry_key(post) %>"><%= post.title %></a></h3>
+    <h3><a class="entry-title" href="<%= url_for(post.path) %>" data-entry="<%= entry_key(post) %>"><%= entry_title(post) %></a></h3>
     <% if (l.excerpts && excerpt_text(post,l.excerpt_length)) { %><p><%= excerpt_text(post,l.excerpt_length) %></p><% } %>
     <% if (l.category || l.date || l.reading_time || post.demo) { %><div class="entry-meta">
       <% if (l.category) { %><span class="entry-topic"><%= post_topic(post) %></span><% } %>

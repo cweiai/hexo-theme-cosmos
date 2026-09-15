@@ -12,7 +12,7 @@ Both language editions of this module guide are excluded from the installation a
 
 | Name | Kind | Description |
 | --- | --- | --- |
-| css/style.css | Stylesheet | Editorial layout, typography, CSS variable hooks, and responsive states. |
+| css/style.css | Stylesheet | Editorial layout, typography, responsive photo galleries, marked code lines, CSS variable hooks, and responsive states. |
 | js/main.js | Browser script | Localized navigation, search, reading progress, and code copy. |
 | js/transitions.js | Browser script | Progressive shared article-title page transitions. |
 | fonts/ | Assets | Self-hosted fonts and their licenses. |

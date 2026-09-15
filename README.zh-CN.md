@@ -4,6 +4,8 @@
 
 一款适合个人写作、项目介绍和 About 页的 Hexo 主题，使用纸张色调、本地字体和宽松排版。
 
+[在线预览](https://cweiai.io) · [主题截图（800×500 PNG）](docs/images/Cosmos.png)
+
 [配置](docs/configuration.zh-CN.md) · [写作](docs/content.zh-CN.md) · [帮助](docs/usage.zh-CN.md#常见问题) · [GitHub](https://github.com/cweiai/hexo-theme-cosmos)
 
 ![Cosmos 桌面首页](docs/images/home-desktop.png)

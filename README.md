@@ -4,6 +4,8 @@
 
 A warm editorial Hexo theme for writing, projects, and an expressive About page. Paper colors, local fonts, and generous spacing give your content room to breathe.
 
+[Live preview](https://cweiai.io) · [Theme screenshot (800×500 PNG)](docs/images/Cosmos.png)
+
 [Configuration](docs/configuration.md) · [Writing](docs/content.md) · [Help](docs/usage.md#faq) · [GitHub](https://github.com/cweiai/hexo-theme-cosmos)
 
 ![Cosmos desktop cover](docs/images/home-desktop.png)

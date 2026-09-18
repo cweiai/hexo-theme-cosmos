@@ -53,7 +53,7 @@ Hexo stores `photos` as URL strings. Gallery images receive numbered alternative
 
 ### Marked code lines
 
-With Hexo's `highlight.js` highlighter, the `mark` option highlights selected code lines using the theme's honey and accent colors:
+With Hexo's `highlight.js` highlighter, the `mark` option highlights selected code lines using the theme's honey and accent colors. The accent rule stays clear of the code, and marked lines remain aligned with unmarked lines:
 
 ```text
 {% codeblock lang:js mark:1,3 %}

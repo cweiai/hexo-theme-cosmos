@@ -20,4 +20,6 @@
 
 `npm run check:package` 单独在新站点安装真实压缩包。`COSMOS_HEXO_VERSION` 指定该检查的 Hexo 版本。此检查依赖网络，与普通测试套件分开。
 
+检查代码标记行间距时，在桌面和手机宽度下验证 2px 强调色竖线后留有 8px 间隔、代码行首对齐、缩进保留且复制文字不变。同时检查长行、隐藏行号、禁用复制和关闭 JavaScript 后的阅读。`screenshots/code-mark-spacing-desktop.png` 与 `screenshots/code-mark-spacing-mobile.png` 记录了生成的 Hexo 文章中的间距修复效果。
+
 文章回归测试覆盖无标题文章的元数据、列表、相邻链接和搜索，包括文章语言和标签覆盖。图库用例经过真实 Hexo 头部配置解析，验证 URL 转义、协议过滤、顺序、空列表、旧式 `photo` 和子目录根路径。修改代码高亮样式时，需要在浏览器中检查 `.line.marked`；仅验证生成的 HTML 无法证明高亮颜色和复制行为正确。

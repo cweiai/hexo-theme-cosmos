@@ -53,7 +53,7 @@ Hexo 将 `photos` 存为 URL 字符串列表。图库图片的替代文字由 `l
 
 ### 代码行标记
 
-使用 Hexo 的 `highlight.js` 高亮器时，`mark` 选项会用主题的蜂蜜色和强调色突出指定代码行：
+使用 Hexo 的 `highlight.js` 高亮器时，`mark` 选项会用主题的蜂蜜色和强调色突出指定代码行。强调色竖线与代码保持间隔，标记行和普通行的代码保持对齐：
 
 ```text
 {% codeblock lang:js mark:1,3 %}

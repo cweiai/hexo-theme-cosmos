@@ -6,6 +6,8 @@
 
 Static public assets with no personal content or remote runtime dependency.
 
+Marked code lines extend their background and 2px accent rule 10px into the existing left padding. Matching inner padding preserves code alignment and leaves an 8px gap between the rule and the code, including at mobile widths.
+
 Both language editions of this module guide are excluded from the installation archive and generated blog assets. Site-authored README pages remain eligible for publication.
 
 ## Main Interfaces / Implementations

@@ -16,8 +16,10 @@ Real temporary Hexo sites verify theme behavior. Temporary fixtures are removed 
 | settings.test.cjs | Unit tests | Array replacement, URL safety, paths, and serialized script content. |
 | documentation.test.cjs | Support checks | Markdown links/anchors, translation pairing with an English-only agent-guide exception, English defaults, direct topic links, user-document boundaries, configuration schema, and CI runtime targets. |
 | reference.test.cjs | Reference regression tests | Runs the reference tool in temporary fixtures with LF/CRLF/mixed line endings; checks read-only validation, detection of stale documents/schema/defaults, and LF regeneration. |
-| screenshots/ | Visual evidence | Desktop/mobile captures of an untitled article with neutral gallery images and marked code lines. |
+| screenshots/ | Visual evidence | Desktop/mobile captures of an untitled article with neutral gallery images, marked code lines, and code-copy alignment with independently scrolling long lines. |
 
 `npm run check:package` separately installs a real packed archive in a fresh site. `COSMOS_HEXO_VERSION` selects the Hexo version for that installation test. This network-dependent check is separate from the regular test suite.
 
 Article regressions cover untitled posts across metadata, listings, adjacent links, and search, including post-language and label overrides. Gallery cases cross the real Hexo front-matter parser and verify URL escaping, rejected schemes, ordering, empty lists, legacy `photo`, and subdirectory roots. Inspect `.line.marked` in a browser when changing code-highlight styles; generated markup alone cannot verify the highlight color or copy behavior.
+
+For code-copy changes, inspect Highlight.js and Prism blocks at desktop/mobile widths, including long first lines, single-line snippets, captions, marked lines, and localized labels. Verify horizontal scrolling leaves the button in place, keyboard focus and arrow-key scrolling work, and copying preserves code text without line numbers. Also check clipboard failure feedback, disabled copying, JavaScript-disabled reading, and print output.

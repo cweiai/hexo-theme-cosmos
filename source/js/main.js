@@ -188,6 +188,27 @@
     updateReading();
   }
   if (document.body.dataset.copyCode !== 'false') document.querySelectorAll('.prose .highlight, .prose pre[class*=language-]').forEach(block => {
+    let container = block;
+    let scroll = block;
+    if (block.matches('pre')) {
+      container = document.createElement('div');
+      block.before(container);
+      container.append(block);
+      const caption = block.querySelector(':scope > .caption');
+      if (caption) {
+        caption.classList.add('code-caption');
+        container.prepend(caption);
+      }
+    } else {
+      const table = block.querySelector('table');
+      if (!table) return;
+      scroll = document.createElement('div');
+      table.before(scroll);
+      scroll.append(table);
+    }
+    container.classList.add('code-block');
+    scroll.classList.add('code-scroll');
+    scroll.tabIndex = 0;
     const button = document.createElement('button');
     button.className = 'code-copy';
     button.type = 'button';
@@ -207,6 +228,6 @@
       }
       setTimeout(() => { button.textContent = t('copy'); status.textContent = ''; }, 1800);
     });
-    block.append(button,status);
+    container.append(button,status);
   });
 })();

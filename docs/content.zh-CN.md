@@ -65,6 +65,8 @@ const total = first + second;
 
 该样式作用于 Hexo 生成的 `.line.marked`，不会改变代码文字，也不会把行号加入复制结果。
 
+启用 `post.copy_code` 时，复制按钮位于第一行代码旁。长行在代码区域内横向滚动，按钮保持可见。键盘用户可聚焦代码区域后使用方向键滚动。关闭 JavaScript 后仍可阅读代码。
+
 ## About 的两种编写方式
 
 1. **自动页面：**在 `_config.cosmos.yml` 填写 `about.content`，或设置 `about.file: _content/about.md`。下划线目录可防止片段同时生成独立页面。支持普通 Markdown 和 HTML。配置或文件片段直接渲染；需要 Hexo 标签插件语法时，使用普通的 `source/about/index.md` 页面。

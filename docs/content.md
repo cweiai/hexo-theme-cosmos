@@ -65,6 +65,8 @@ const total = first + second;
 
 This styles Hexo's `.line.marked` output. It does not change the code text or add line numbers to copied code.
 
+With `post.copy_code` enabled, the copy button sits beside the first code line. Long lines scroll horizontally within the code area, leaving the button visible. Keyboard users can focus the code area and use the arrow keys to scroll. Code remains readable without JavaScript.
+
 ## Two native ways to author About
 
 1. **Automatic page:** fill `about.content` or `about.file: _content/about.md` in `_config.cosmos.yml`. The underscore folder keeps a content fragment from also becoming a standalone page. Plain Markdown and HTML are accepted. Configuration/file fragments are rendered directly; Hexo tag-plugin syntax belongs in a normal `source/about/index.md` page instead.

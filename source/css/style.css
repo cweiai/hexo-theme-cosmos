@@ -247,14 +247,18 @@ em { font-family: var(--serif); font-weight: 400; }
 .prose .highlight figcaption { text-align:left; padding:12px 80px 12px 18px; border-bottom:1px solid var(--rule); }
 .prose .highlight table { display:table; border:0; width:100%; margin:0; font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace; }
 .prose .highlight td { border:0; padding:0; min-width:0; vertical-align:top; }
-.prose .highlight pre { margin:0; padding:30px 18px 22px; }
+.prose .highlight pre { margin:0; padding:22px 18px; }
 .prose .highlight .gutter { width:1px; color:var(--muted); white-space:nowrap; user-select:none; }
 .prose .highlight .gutter pre { padding-inline:14px; }
 .prose .highlight .line.marked { display:inline-block; min-width:100%; min-height:1.7em; vertical-align:top; background:var(--honey); box-shadow:inset 2px 0 var(--accent); }
 .highlight .string,.highlight .attr { color:#4c5d33; }
 .highlight .keyword,.highlight .number,.highlight .literal { color:var(--accent); }
 .highlight .comment { color:var(--muted); font-style:italic; }
-.code-copy { position:absolute; top:5px; right:8px; font:12px var(--sans); min-height:34px; padding:6px 10px; background:var(--paper); }
+.prose .code-block { display:grid; grid-template-columns:minmax(0,1fr) max-content; column-gap:12px; position:relative; margin:26px 0; padding-right:8px; background:var(--paper-low); overflow:visible; }
+.prose .code-block>figcaption,.prose .code-caption { grid-column:1 / -1; margin-right:-8px; padding:12px 18px; border-bottom:1px solid var(--rule); color:var(--muted); font:14px/1.6 var(--sans); }
+.prose .code-block>.code-scroll { min-width:0; margin:0; overflow:auto; }
+.prose .code-scroll table { max-width:none; }
+.code-copy { align-self:start; margin-top:16px; font:12px var(--sans); min-height:34px; padding:6px 10px; background:var(--paper); }
 .code-copy:hover { color:var(--accent); }
 .prose table { display:block; border-collapse:collapse; overflow:auto; max-width:100%; margin:25px 0; font-size:14px; }
 .prose th,.prose td { padding:13px 16px; border:1px solid var(--rule); text-align:left; min-width:110px; }
@@ -467,7 +471,8 @@ em { font-family: var(--serif); font-weight: 400; }
   .prose h2 { font-size:28px; margin-top:36px; margin-bottom:19px; }
   .prose h3 { font-size:23px; }
   .prose blockquote { padding-left:22px; font-size:19px; margin:29px 0; }
-  .prose .highlight pre { padding:34px 14px 20px; }
+  .prose .highlight pre { padding:20px 14px; }
+  .code-copy { margin-top:14px; }
   .article-heading { padding:23px 0 28px; }
   .article-back { margin-bottom:24px; font-size:12px; }
   .article-heading h1 { font-size:44px; line-height:1.12; }
@@ -524,6 +529,8 @@ em { font-family: var(--serif); font-weight: 400; }
   .article-layout { display:block; }
   .prose { max-width:none; font-size:11pt; }
   .prose .highlight { break-inside:avoid; }
+  .prose .code-block { display:block; padding-right:0; }
+  .prose .code-block>figcaption,.prose .code-caption { margin-right:0; }
 }
 
 
@@ -563,7 +570,7 @@ em { font-family: var(--serif); font-weight: 400; }
 .taxonomy-list .icon { margin-left:auto; }
 .taxonomy-count+.icon { margin-left:0; }
 .not-found h1 { overflow-wrap:anywhere; }
-.prose pre[class*=language-] { position:relative; overflow:auto; padding:40px 24px 24px; background:var(--paper-low); }
+.prose pre[class*=language-] { position:relative; overflow:auto; padding:22px 24px; background:var(--paper-low); font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace; }
 .no-motion,.no-motion * { scroll-behavior:auto!important; }
 .no-motion *,.no-motion *::before,.no-motion *::after { animation:none!important; transition:none!important; }
 @media (max-width:1200px) {
@@ -590,6 +597,7 @@ em { font-family: var(--serif); font-weight: 400; }
   .hero-illustration { width:min(96vw,50svh,500px); }
   .hero-description { margin-left:28px; font-size:16px; }
   .prose { font-size:var(--body-mobile-size); line-height:var(--body-mobile-line-height); }
+  .prose pre[class*=language-] { padding-block:20px; }
   .prose blockquote { font-size:var(--quote-mobile-size); }
   .about-layout,.article-layout { display:block; }
   .article-heading { padding-left:0; }

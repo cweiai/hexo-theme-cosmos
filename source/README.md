@@ -6,6 +6,8 @@
 
 Static public assets with no personal content or remote runtime dependency.
 
+Marked code lines extend their background and 2px accent rule 10px into the existing left padding. Matching inner padding preserves code alignment and leaves an 8px gap between the rule and the code, including at mobile widths.
+
 Both language editions of this module guide are excluded from the installation archive and generated blog assets. Site-authored README pages remain eligible for publication.
 
 Code blocks use balanced vertical padding. When copying is enabled, `main.js` places the copy button beside a keyboard-focusable scrolling region, aligned with the first code line. Highlight.js and Prism-style `pre` blocks share this layout, with captions spanning both columns. Long lines scroll without moving or covering the button. Without JavaScript or with copying disabled, code retains the full width; print output removes the button column.

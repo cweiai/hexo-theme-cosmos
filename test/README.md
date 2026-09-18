@@ -20,6 +20,8 @@ Real temporary Hexo sites verify theme behavior. Temporary fixtures are removed 
 
 `npm run check:package` separately installs a real packed archive in a fresh site. `COSMOS_HEXO_VERSION` selects the Hexo version for that installation test. This network-dependent check is separate from the regular test suite.
 
+For marked-line spacing, verify an 8px gap after the 2px accent rule, aligned code starts, preserved indentation, and unchanged copied text at desktop/mobile widths. Check long lines, hidden line numbers, disabled copying, and reading without JavaScript. `screenshots/code-mark-spacing-desktop.png` and `screenshots/code-mark-spacing-mobile.png` record the spacing fix in a generated Hexo article.
+
 Article regressions cover untitled posts across metadata, listings, adjacent links, and search, including post-language and label overrides. Gallery cases cross the real Hexo front-matter parser and verify URL escaping, rejected schemes, ordering, empty lists, legacy `photo`, and subdirectory roots. Inspect `.line.marked` in a browser when changing code-highlight styles; generated markup alone cannot verify the highlight color or copy behavior.
 
 For code-copy changes, inspect Highlight.js and Prism blocks at desktop/mobile widths, including long first lines, single-line snippets, captions, marked lines, and localized labels. Verify horizontal scrolling leaves the button in place, keyboard focus and arrow-key scrolling work, and copying preserves code text without line numbers. Also check clipboard failure feedback, disabled copying, JavaScript-disabled reading, and print output.

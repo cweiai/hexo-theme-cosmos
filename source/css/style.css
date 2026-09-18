@@ -250,7 +250,7 @@ em { font-family: var(--serif); font-weight: 400; }
 .prose .highlight pre { margin:0; padding:22px 18px; }
 .prose .highlight .gutter { width:1px; color:var(--muted); white-space:nowrap; user-select:none; }
 .prose .highlight .gutter pre { padding-inline:14px; }
-.prose .highlight .line.marked { display:inline-block; min-width:100%; min-height:1.7em; vertical-align:top; background:var(--honey); box-shadow:inset 2px 0 var(--accent); }
+.prose .highlight .line.marked { display:inline-block; min-width:calc(100% + 10px); min-height:1.7em; margin-inline-start:-10px; padding-inline-start:10px; vertical-align:top; background:var(--honey); box-shadow:inset 2px 0 var(--accent); }
 .highlight .string,.highlight .attr { color:#4c5d33; }
 .highlight .keyword,.highlight .number,.highlight .literal { color:var(--accent); }
 .highlight .comment { color:var(--muted); font-style:italic; }

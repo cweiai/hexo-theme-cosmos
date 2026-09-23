@@ -68,7 +68,7 @@ npx hexo server
 
 ## 更新与回滚
 
-先查看[最近的修改](https://github.com/cweiai/hexo-theme-cosmos/commits/main/)，备份博客配置、`source/`、package 文件与锁文件，并记录当前主题提交：
+先查看[发布说明](https://github.com/cweiai/hexo-theme-cosmos/releases)，备份博客配置、`source/`、package 文件与锁文件，并记录当前主题提交。默认 Git 安装跟随 `main`，在博客根目录执行以下步骤更新：
 
 ```sh
 cd themes/cosmos
@@ -81,7 +81,9 @@ npx hexo generate
 npx hexo server
 ```
 
-发布博客前检查首页、About、文章、搜索和手机排版。若 Git 提示本地修改或历史分叉，先保留并处理这些修改，不要直接覆盖。未修改主题文件时，可执行 `git -C themes/cosmos checkout <之前的提交>`，在 `themes/cosmos` 重新执行 `npm install`，再返回博客根目录清理并生成来回滚；以后恢复跟随分支时执行 `git -C themes/cosmos switch <分支名>`。
+发布博客前检查首页、About、文章、搜索和手机排版。若 Git 提示本地修改或历史分叉，先保留并处理这些修改，不要直接覆盖。未修改主题文件时，可执行 `git -C themes/cosmos switch --detach <之前的提交或tag>`，在 `themes/cosmos` 重新执行 `npm install`，再返回博客根目录清理并生成来回滚。恢复常规更新时，先执行 `git -C themes/cosmos switch main`，再按上面的步骤更新。
+
+**可选：固定发布版本。**`main` 可能包含最新发布版本之后的修改。如需停留在某个发布版本，在 `themes/cosmos` 执行 `git fetch --tags origin` 和 `git switch --detach <tag>`，使用 Releases 中的 tag，再按上面的步骤重新安装依赖并预览。切换到 tag 后会固定在该版本；之后通过切换 tag 更新，不使用 `git pull`。
 
 主题包安装则使用 `npm install "/路径/主题包.tgz"` 更新，保留旧包以便回滚。如果也要恢复依赖版本，恢复备份中的博客锁文件并执行 `npm ci`。
 
@@ -101,4 +103,4 @@ npx hexo server
 | 评论、公式或 Mermaid 没出现 | 需要配置对应服务或渲染器；`post.comments` 只控制文章末尾 HTML 插槽。参见[可选接入](content.zh-CN.md#可选接入)。 |
 | 改路由后旧页面仍存在 | 执行 `npx hexo clean` 后重新生成，并替换部署产物。 |
 
-仍有问题时，[提交 Issue](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=bug.zh-CN.yml)，附上主题、Hexo、Node 版本、第一条错误、最小配置和复现步骤。也欢迎[提出功能需求](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=feature.zh-CN.yml)。支持按维护者可用时间处理；外部服务和自定义脚本可能需要单独排查。
+仍有问题时，[提交 Issue](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=bug.zh-CN.yml)，附上主题、Hexo、Node 版本、第一条错误、最小配置和复现步骤。Git 安装还请附上所选 tag（如有）和 `git -C themes/cosmos rev-parse HEAD` 的输出，以便定位准确的源码版本。也欢迎[提出功能需求](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=feature.zh-CN.yml)。支持按维护者可用时间处理；外部服务和自定义脚本可能需要单独排查。

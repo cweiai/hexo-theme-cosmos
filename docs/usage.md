@@ -68,7 +68,7 @@ Open the address printed by Hexo, normally `http://localhost:4000/`. The cover i
 
 ## Update and rollback
 
-Review the [recent changes](https://github.com/cweiai/hexo-theme-cosmos/commits/main/), back up the blog's configuration, `source/`, and package/lock files, and record your current theme commit:
+Review the [release notes](https://github.com/cweiai/hexo-theme-cosmos/releases), back up the blog's configuration, `source/`, and package/lock files, and record your current theme commit. The default Git installation follows `main`; update it from your blog root:
 
 ```sh
 cd themes/cosmos
@@ -81,7 +81,9 @@ npx hexo generate
 npx hexo server
 ```
 
-Check home, About, an article, search, and a narrow screen before deploying. If Git reports local changes or diverging history, preserve those changes and resolve them before retrying; do not overwrite them. To roll back an unmodified theme checkout, run `git -C themes/cosmos checkout <previous-commit>`, run `npm install` in `themes/cosmos`, then return to the blog root to clean and generate again. To resume following a branch later, use `git -C themes/cosmos switch <branch>`.
+Check home, About, an article, search, and a narrow screen before deploying. If Git reports local changes or diverging history, preserve those changes and resolve them before retrying; do not overwrite them. To roll back an unmodified theme checkout, run `git -C themes/cosmos switch --detach <previous-commit-or-tag>`, run `npm install` in `themes/cosmos`, then return to the blog root to clean and generate again. To resume normal updates, run `git -C themes/cosmos switch main` before following the update steps above.
+
+**Optional fixed release:** `main` may include changes newer than the latest release. To stay on a specific release, run `git fetch --tags origin` and `git switch --detach <tag>` in `themes/cosmos`, using a tag from Releases, then reinstall dependencies and preview as above. A tag checkout stays at that version; switch tags to update it instead of using `git pull`.
 
 For archive installations, install the desired `.tgz` with `npm install "/path/to/theme.tgz"`; retain the previous archive for rollback. Restore the blog's dependency lockfile from your backup and run `npm ci` if you also need to restore its dependency versions.
 
@@ -101,4 +103,4 @@ For archive installations, install the desired `.tgz` with `npm install "/path/t
 | Comments, LaTeX, or Mermaid are missing | These need a provider or renderer; `post.comments` only enables the article-end HTML slot. See [optional integrations](content.md#optional-integrations). |
 | Old pages remain after changing routes | Run `npx hexo clean`, regenerate, and replace the deployed output. |
 
-For help, [open an issue](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=bug.yml) with theme/Hexo/Node versions, the first error, minimal configuration, and reproduction steps. [Feature requests](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=feature.yml) are welcome. Support is best-effort; external services and custom scripts may require separate diagnosis.
+For help, [open an issue](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=bug.yml) with theme/Hexo/Node versions, the first error, minimal configuration, and reproduction steps. For Git installations, also include the selected tag (if any) and the output of `git -C themes/cosmos rev-parse HEAD` so the exact source can be identified. [Feature requests](https://github.com/cweiai/hexo-theme-cosmos/issues/new?template=feature.yml) are welcome. Support is best-effort; external services and custom scripts may require separate diagnosis.

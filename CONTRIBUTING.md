@@ -46,6 +46,8 @@ Keep the README focused on introduction, screenshots, quick installation, and di
 
 When changing the package version, update package.json and package-lock.json together with `npm version patch --no-git-tag-version` (or minor/major). Record user-visible changes and migration steps in the pull request and affected user guides.
 
+Before tagging a release, confirm that `package.json`, the top-level version and `packages[""].version` in `package-lock.json`, and the intended `v<version>` tag all agree. The archive name and its embedded package version come from `package.json`; create the release tag only after the version changes are included in the release commit.
+
 Run `npm run check` and `npm run check:package` before preparing an archive. Then `npm run theme:pack` creates a local `.tgz` in `dist/`. It includes theme runtime files, user guides, presets, and licenses. Agent/contributor documents, tests, and repository tooling are excluded.
 
 CI checks Node 20/22/24 on Linux, macOS, and Windows, with separate clean-package installation jobs for Hexo 7.3.0 and 8.1.2. Review the actual workflow results before merging. Workflows perform validation only; local packaging does not upload files anywhere.

@@ -46,6 +46,8 @@ README 只介绍主题、展示截图、提供快速安装和直达文档链接�
 
 调整包版本时，使用 `npm version patch --no-git-tag-version`（或 minor/major）同步更新 package.json 和 package-lock.json。用户可见变化和迁移步骤记录在 PR 及受影响的用户指南中。
 
+创建发布 tag 前，确认 `package.json`、`package-lock.json` 顶层的版本和 `packages[""].version`，以及计划使用的 `v<version>` tag 一致。安装包文件名和包内版本均来自 `package.json`；版本修改纳入发布提交后，再创建对应 tag。
+
 准备安装包前运行 `npm run check` 和 `npm run check:package`，再通过 `npm run theme:pack` 在本地 `dist/` 生成 `.tgz`。安装包包含主题运行文件、用户指南、预设和许可证，排除 Agent/贡献者文档、测试和仓库工具。
 
 CI 检查 Linux、macOS、Windows 上的 Node 20/22/24，并单独验证 Hexo 7.3.0 和 8.1.2 的安装包。合并前应查看工作流的实际结果。工作流只执行验证，本地打包不会向任何位置上传文件。

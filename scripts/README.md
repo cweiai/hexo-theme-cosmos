@@ -15,4 +15,6 @@ Automatically loaded Hexo scripts. Personal content is read from the site, not s
 | profile-icons.js | Helper | Decorative local icons for configured profile rows. |
 
 `entry_title` keeps authored titles and supplies a localized fallback for blank post titles in templates and the search index. `post_photos` accepts Hexo's normalized photo URL list, applies existing URL/root handling, and returns numbered alternative text for article galleries. Neither helper changes post data or routes.
+
+`cosmos_client` serializes labels, search, article, listing, and motion settings.
 */

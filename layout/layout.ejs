@@ -33,6 +33,9 @@ const brand = c.brand.title || config.title;
   <link rel="preload" href="<%= url_for('/fonts/petrona-italic.woff2') %>" as="font" type="font/woff2" crossorigin>
   <% } %>
   <link rel="stylesheet" href="<%= url_for('/css/style.css') %>">
+  <% if (cover && c.motion.enabled) { %>
+  <script>try{if(!sessionStorage.getItem('cosmos-visited:'+<%- cosmos_json(url_for('/')) %>)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('cover-enter')}catch{}</script>
+  <% } %>
   <style><%- cosmos_css() %></style>
   <% for (const src of c.custom.css || []) { if (cosmos_url(src)) { %><link rel="stylesheet" href="<%= cosmos_url(src) %>"><% } } %>
   <% if (c.motion.enabled && c.motion.page_transitions) { %>

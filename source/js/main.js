@@ -7,27 +7,36 @@
   const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
   const reducedMotion = { get matches() { return !settings.motion.enabled || motionPreference.matches; } };
   const root = new URL(document.body.dataset.root, location.origin);
+  try { sessionStorage.setItem(`cosmos-visited:${root.pathname}`, '1'); } catch { /* Reading works without storage. */ }
   const blog = new URL(document.body.dataset.blog, location.origin);
   const menu = document.querySelector('.site-nav');
   const menuToggle = document.querySelector('.menu-toggle');
   const input = document.querySelector('#post-search');
+  const desktopMenu = matchMedia('(min-width: 721px)');
+
+  function menuState(open, instant = false) {
+    menu?.classList.toggle('is-instant', instant);
+    menuToggle?.classList.toggle('is-instant', instant);
+    menu?.classList.toggle('is-open', open);
+    // A closing wipe stays visible briefly, but its links must stop receiving focus immediately.
+    if (menu) menu.inert = !open && !desktopMenu.matches;
+    menuToggle?.setAttribute('aria-expanded', String(open));
+    menuToggle?.setAttribute('aria-label', open ? t('close_navigation') : t('open_navigation'));
+  }
 
   function closeMenu(restoreFocus = false) {
-    menu?.classList.remove('is-open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-    menuToggle?.setAttribute('aria-label', t('open_navigation'));
+    menuState(false, restoreFocus);
     if (restoreFocus) menuToggle?.focus();
   }
-  menuToggle?.addEventListener('click', () => {
+  menuToggle?.addEventListener('click', event => {
     const open = menuToggle.getAttribute('aria-expanded') !== 'true';
-    menu.classList.toggle('is-open', open);
-    menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? t('close_navigation') : t('open_navigation'));
+    menuState(open, event.detail === 0);
   });
   document.addEventListener('click', event => {
     if (!event.target.closest('.site-header') || event.target.closest('.site-nav a')) closeMenu();
   });
-  matchMedia('(min-width: 721px)').addEventListener('change', () => closeMenu());
+  desktopMenu.addEventListener('change', () => closeMenu());
+  closeMenu();
 
   function focusSearch() {
     if (input) {
@@ -58,6 +67,9 @@
     let indexPromise;
     let queryVersion = 0;
     let debounce;
+    motionPreference.addEventListener('change', () => {
+      if (reducedMotion.matches) results.querySelectorAll('.entry').forEach(item => item.getAnimations().forEach(animation => animation.cancel()));
+    });
 
     function loadIndex() {
       if (!indexPromise) indexPromise = fetch(new URL(settings.search.path.replace(/^\/+/, ''), root)).then(response => {
@@ -117,7 +129,6 @@
       status.hidden = false;
       results.hidden = false;
       results.setAttribute('aria-busy', 'true');
-      results.replaceChildren();
       status.textContent = t('searching');
       try {
         const posts = await loadIndex();
@@ -127,9 +138,32 @@
         matches.sort((a,b) => Number(b.title.toLocaleLowerCase().includes(query)) - Number(a.title.toLocaleLowerCase().includes(query)));
         const limit = Math.max(1, Number(settings.search.limit) || 30);
         status.textContent = matches.length ? t(matches.length === 1 ? 'search_found_one' : 'search_found', { count: matches.length }) + (matches.length > limit ? ' ' + t('search_truncated', { limit }) : '') : t('search_empty');
+        const previous = new Map([...results.querySelectorAll('.entry')].map(item => [item.querySelector('[data-entry]').dataset.entry, { item, top: item.getBoundingClientRect().top + scrollY }]));
         const fragment = document.createDocumentFragment();
-        matches.slice(0,limit).forEach(post => fragment.append(entryElement(post)));
+        let fresh = 0;
+        matches.slice(0,limit).forEach(post => {
+          const item = previous.get(post.key)?.item || entryElement(post);
+          if (previous.has(post.key)) {
+            item.classList.remove('is-new');
+            item.style.removeProperty('--result-delay');
+          }
+          if (!previous.has(post.key) && !reducedMotion.matches) {
+            item.classList.add('is-new');
+            item.style.setProperty('--result-delay', `${Math.min(fresh++, 4) * 32}ms`);
+            item.addEventListener('animationend', () => item.classList.remove('is-new'), { once: true });
+          }
+          fragment.append(item);
+        });
         results.replaceChildren(fragment);
+        if (!reducedMotion.matches) {
+          const easing = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim();
+          for (const { item, top } of previous.values()) {
+            if (!item.isConnected || typeof item.animate !== 'function') continue;
+            item.getAnimations().forEach(animation => animation.cancel());
+            const shift = top - (item.getBoundingClientRect().top + scrollY);
+            if (shift) item.animate([{ transform: `translateY(${shift}px)` }, { transform: 'none' }], { duration: 240, easing });
+          }
+        }
       } catch {
         if (version !== queryVersion) return;
         status.textContent = t('search_error');
@@ -212,22 +246,63 @@
     const button = document.createElement('button');
     button.className = 'code-copy';
     button.type = 'button';
-    button.textContent = t('copy');
     button.setAttribute('aria-label', t('copy_code'));
+    const labels = {};
+    for (const [state, text] of [['copy', t('copy')], ['done', t('copied')], ['error', t('copy_select')]]) {
+      const label = document.createElement('span');
+      label.dataset.label = state;
+      label.setAttribute('aria-hidden', 'true');
+      if (state === 'done') label.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+      label.append(text);
+      labels[state] = label;
+    }
+    labels.copy.classList.add('is-current');
+    button.append(labels.copy, labels.done, labels.error);
+    const wash = document.createElement('span');
+    wash.className = 'code-wash';
+    wash.setAttribute('aria-hidden', 'true');
     const status = document.createElement('span');
     status.className = 'sr-only';
     status.setAttribute('role','status');
-    button.addEventListener('click', async () => {
+    let reset;
+    let copyVersion = 0;
+    let washAnimation;
+    function show(state) {
+      const next = labels[state];
+      const previous = button.querySelector('.is-current');
+      if (previous === next) return;
+      next.classList.remove('is-leaving');
+      next.style.transition = 'none';
+      next.getBoundingClientRect();
+      next.style.removeProperty('transition');
+      previous.classList.replace('is-current', 'is-leaving');
+      next.classList.add('is-current');
+    }
+    button.addEventListener('click', async event => {
+      const version = ++copyVersion;
+      clearTimeout(reset);
+      button.classList.toggle('is-instant', event.detail === 0);
+      if (event.detail === 0) washAnimation?.cancel();
       try {
         await navigator.clipboard.writeText(block.querySelector('.code pre')?.innerText || block.querySelector('code')?.innerText || block.innerText);
-        button.textContent = t('copied');
+        if (version !== copyVersion) return;
+        show('done');
         status.textContent = t('code_copied');
+        if (event.detail !== 0 && !reducedMotion.matches && typeof wash.animate === 'function') {
+          const current = getComputedStyle(wash);
+          const easing = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim();
+          const start = { clipPath: current.clipPath, opacity: current.opacity, easing };
+          washAnimation?.cancel();
+          washAnimation = wash.animate([start, { clipPath: 'inset(0)', opacity: .55, offset: .4, easing: 'ease' }, { clipPath: 'inset(0)', opacity: 0 }], { duration: 800 });
+        }
       } catch {
-        button.textContent = t('copy_select');
+        if (version !== copyVersion) return;
+        show('error');
         status.textContent = t('clipboard_error');
       }
-      setTimeout(() => { button.textContent = t('copy'); status.textContent = ''; }, 1800);
+      reset = setTimeout(() => { show('copy'); status.textContent = ''; }, 1800);
     });
-    container.append(button,status);
+    motionPreference.addEventListener('change', () => { if (reducedMotion.matches) washAnimation?.cancel(); });
+    container.append(button, status, wash);
   });
 })();

@@ -111,7 +111,7 @@ Use `facts: []`, `contacts: []`, and `email: ''` to clear these regions. Use `ab
 | `listing` | `title`, `title_period`, category filter `categories`, `counts`, `excerpts`, `excerpt_length`, `date`, `category`, `reading_time`, `aside`, `aside_note`, `signoff`. |
 | `post` | `back_link`, `description`, `author`, `date`, `updated`, `categories`, `reading_time`, `toc`, `toc_depth`, `toc_numbers`, `reading_note`, `progress`, `copy_code`, `tags`, `signoff`, `navigation`, `comments`. |
 | `search` | `enabled`, local JSON `path`, result `limit`. Matches published post titles, bodies, first category, and tags. Posts with `search: false` or `noindex: true` are excluded; ordinary pages are not indexed. |
-| `motion` | `enabled` disables all authored movement; `page_transitions` independently controls navigation transitions. Reduced-motion preferences are always honored. |
+| `motion` | `enabled` disables all theme-added motion; `page_transitions` independently controls cross-document transitions. The system reduced-motion preference is always honored. |
 | `seo` | Default preview `image`, `twitter_card`, `noindex`, and optional `rss` URL. |
 
 All optional sidebar/signoff strings default to empty. Newlines in reading-note or listing-aside strings are preserved. Article `post_options` can override any `post` option; standard front matter `toc: false` and `comments: false` work too. Older entries are on the right, including when there is no newer entry. Empty tags/signoff never create an empty closing block.

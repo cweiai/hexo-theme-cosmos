@@ -70,6 +70,34 @@ test('blog-at-root mode and disabled features remove their markup and search ind
     assert.match(site.read('about/index.html'),/without-profile/);
   } finally {await site.close();}
 });
+test('motion settings independently control effects and page transitions under a subdirectory root', async t => {
+  const cases = [
+    { overrides: {}, enabled: true, transitions: true },
+    { overrides: { motion: { enabled: false } }, enabled: false, transitions: false },
+    { overrides: { motion: { page_transitions: false } }, enabled: true, transitions: false },
+    { overrides: { motion: { enabled: false, page_transitions: false } }, enabled: false, transitions: false }
+  ];
+  for (const { overrides, enabled, transitions } of cases) {
+    await t.test(JSON.stringify(overrides), async () => {
+      const site = await build({ root: '/journal/', url: 'https://example.org/journal' }, overrides);
+      try {
+        const cover = site.read('index.html');
+        const article = site.read('2024/06/12/formatting/index.html');
+        assert.match(cover, /href="\/journal\/css\/style.css"/);
+        assert.match(cover, /src="\/journal\/js\/main.js"/);
+        assert.equal(cover.includes('@view-transition{navigation:auto}'), transitions);
+        assert.equal(article.includes('src="/journal/js/transitions.js"'), transitions);
+        assert.match(article, /<details>/);
+        assert.match(article, /aria-controls="site-nav"/);
+        assert.equal(cover.includes("classList.add('cover-enter')"), enabled);
+        assert.equal(cover.includes('cosmos-visited:'), enabled);
+        assert.equal(/<html[^>]*class="no-motion"/.test(cover), !enabled);
+        const client = JSON.parse(cover.match(/<script type="application\/json" id="cosmos-settings">([\s\S]*?)<\/script>/)[1]);
+        assert.deepEqual(client.motion, { enabled, page_transitions: overrides.motion?.page_transitions ?? true });
+      } finally { await site.close(); }
+    });
+  }
+});
 test('source About overrides generated content; custom HTML, hooks and assets need no theme edits',async()=>{
   const site=await build({}, {about:{content:'Default content',profile:{name:'Fallback'}},pages:{custom:[{path:'projects',title:'Projects',file:'_content/projects.md'}]},custom:{css:['/custom.css'],js:['/custom.js'],head:'<meta name="custom-head" content="yes">',after_about:'<div id="about-hook">After About</div>',after_post:'<div id="comments">Comments</div>'},labels:{blog:'Journal'},style:{colors:{accent:'#123456'},typography:{quote_size:'20px'}}},dir=>{
     fs.mkdirSync(path.join(dir,'source/about'),{recursive:true});

@@ -12,6 +12,6 @@ const links = cosmos_links(c.navigation);
       <% links.forEach(link => { %><a href="<%= link.href %>" <%- cosmos_active(link) ? 'aria-current="page"' : '' %>><%= link.label %></a><% }) %>
     </nav>
     <% if (c.search.enabled) { %><a class="icon-control" href="<%= cosmos_route('blog') %>#search" aria-label="<%= cx('search') %>"><%- icon('search') %></a><% } %>
-    <% if (links.length) { %><button class="icon-control menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="<%= cx('open_navigation') %>"><%- icon('menu') %></button><% } %>
+    <% if (links.length) { %><button class="icon-control menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="<%= cx('open_navigation') %>"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path class="menu-line menu-line-top" d="M4 8h16"/><path class="menu-line menu-line-bottom" d="M4 16h16"/></svg></button><% } %>
   </div>
 </header>

@@ -111,7 +111,7 @@ about:
 | `listing` | `title`、`title_period`、分类筛选 `categories`、`counts`、`excerpts`、`excerpt_length`、`date`、`category`、`reading_time`、`aside`、`aside_note`、`signoff`。 |
 | `post` | `back_link`、`description`、`author`、`date`、`updated`、`categories`、`reading_time`、`toc`、`toc_depth`、`toc_numbers`、`reading_note`、`progress`、`copy_code`、`tags`、`signoff`、`navigation`、`comments`。 |
 | `search` | `enabled`、本地 JSON 的 `path`、结果数量 `limit`。匹配已发布文章的标题、正文、第一个分类和标签。设置 `search: false` 或 `noindex: true` 的文章会被排除；普通页面不参与索引。 |
-| `motion` | `enabled` 关闭主题主动添加的所有动态效果；`page_transitions` 独立控制页面切换。始终尊重系统的减少动态效果偏好。 |
+| `motion` | `enabled` 关闭主题添加的所有动态效果；`page_transitions` 独立控制跨页面切换。始终遵循系统“减少动态效果”偏好。 |
 | `seo` | 默认分享图 `image`、`twitter_card`、`noindex` 和可选的 `rss` 地址。 |
 
 可选的侧栏文字和结语默认均为空。阅读提示和列表旁注中的换行会保留。文章的 `post_options` 可覆盖任意 `post` 设置，标准头部配置 `toc: false` 和 `comments: false` 也有效。较旧文章的入口显示在右侧，即使没有较新文章也是如此。空标签和结语不会产生空白的文章结尾区域。

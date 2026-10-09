@@ -52,6 +52,8 @@ test('configuration schema accepts shipped examples and rejects common override 
   assert.equal(validate({ home: { mode: 'portfolio' } }), false);
   assert.equal(validate({ post: { toc_depth: 9 } }), false);
   assert.equal(validate({ search: { limti: 10 } }), false);
+  assert.ok(validate({ motion: { enabled: false, page_transitions: false } }));
+  assert.equal(validate({ motion: { enabled: 'false' } }), false);
 });
 
 test('CI declares the documented runtime targets', () => {

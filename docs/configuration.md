@@ -67,7 +67,12 @@ An empty site still gets its blog and archive overview routes. No empty year/mon
 
 Navigation objects have `{route, label, icon}` for a known route or `{url, label, icon}` for a custom destination. Known routes: `home`, `about`, `blog`, `archives`, `categories`, `tags`. Empty labels use translated defaults. Named `about`, `categories`, and `tags` links are hidden when their corresponding `pages` switch is false; use `url` to link to a source page you maintain separately. Icon names are `arrow`, `diagonal`, `back`, `up`, `search`, `close`, and `menu`; unknown names use the arrow. Header navigation ignores the optional icon field.
 
-`footer.enabled` controls the whole footer. `copyright`, `since`, `author`, `back_to_top`, `text`, and `links` control its pieces. The footer author falls back to the site author. There is no compulsory theme credit, social link, or promotional sentence.
+`footer.enabled` controls the whole footer. `copyright`, `since`, `author`, `back_to_top`, `text`, and `links` control its pieces. `footer.text` is a trusted inline HTML slot for site-owner content, such as a credit link or email address; do not place visitor input there. The footer author falls back to the site author. There is no compulsory theme credit, social link, or promotional sentence.
+
+```yaml
+footer:
+  text: 'Powered by <a href="https://hexo.io/">Hexo</a> · <a href="mailto:hello@example.org">Email</a>'
+```
 
 ## About
 
@@ -347,7 +352,7 @@ Applies to: Footer.
 | `footer.since` | string | `""` |  |
 | `footer.author` | string | `""` |  |
 | `footer.back_to_top` | boolean | `true` |  |
-| `footer.text` | string | `""` |  |
+| `footer.text` | string | `""` | Trusted inline HTML shown in the footer; use site-owner content only. |
 | `footer.links` | array | `[]` |  |
 
 ### style defaults

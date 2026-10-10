@@ -70,6 +70,14 @@ test('blog-at-root mode and disabled features remove their markup and search ind
     assert.match(site.read('about/index.html'),/without-profile/);
   } finally {await site.close();}
 });
+test('footer text renders trusted inline HTML while footer metadata stays escaped',async()=>{
+  const site=await build({}, {home:{mode:'blog'},footer:{author:'<Example Author>',text:'Built with <a href="https://hexo.io/">Hexo</a>',back_to_top:false}});
+  try {
+    const index=site.read('index.html');
+    assert.match(index,/<span>Built with <a [^>]*href="https:\/\/hexo\.io\/"[^>]*>Hexo<\/a><\/span>/);
+    assert.match(index,/<span class="footer-copyright">© \d{4} &lt;Example Author&gt;<\/span>/);
+  } finally {await site.close();}
+});
 test('motion settings independently control effects and page transitions under a subdirectory root', async t => {
   const cases = [
     { overrides: {}, enabled: true, transitions: true },

@@ -21,4 +21,6 @@ EJS layouts for all standard pages and reusable editorial components.
 
 Article headings, document metadata, listing entries, and adjacent-post links share the localized `entry_title` fallback. Gallery URLs pass through `post_photos` before escaped attributes are rendered; ordinary body content retains its renderer output.
 
+The footer's `text` setting is a trusted site-authored inline HTML slot; other footer metadata remains escaped.
+
 `layout.ejs` opts into cover entry before paint when `motion.enabled` is true, storage is available, and reduced motion is off. Cross-document transitions require both `motion.enabled` and `motion.page_transitions`. The root-scoped visit check uses `cosmos_json` for safe inline serialization. The header's decorative two-line SVG morphs with the semantic menu button's `aria-expanded` state; the navigation remains ordinary links without JavaScript.

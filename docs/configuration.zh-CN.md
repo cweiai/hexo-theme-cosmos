@@ -67,7 +67,12 @@ tag_generator:
 
 已知路由的导航项使用 `{route, label, icon}`，自定义地址使用 `{url, label, icon}`。已知路由有 `home`、`about`、`blog`、`archives`、`categories`、`tags`。标签为空时使用当前语言的默认文字。`about`、`categories`、`tags` 对应的 `pages` 开关为 `false` 时，其命名导航入口会隐藏；如需链接到自行维护的源页面，使用 `url`。图标名称包括 `arrow`、`diagonal`、`back`、`up`、`search`、`close`、`menu`；未知名称使用箭头。页眉导航忽略可选的 `icon` 字段。
 
-`footer.enabled` 控制整个页脚；`copyright`、`since`、`author`、`back_to_top`、`text`、`links` 控制各部分。页脚作者为空时使用站点作者。没有强制主题署名、社交链接或宣传文字。
+`footer.enabled` 控制整个页脚；`copyright`、`since`、`author`、`back_to_top`、`text`、`links` 控制各部分。`footer.text` 是供站点所有者填写可信内联 HTML 的插槽，可用于署名链接或邮箱地址；不要放入访客输入。页脚作者为空时使用站点作者。没有强制主题署名、社交链接或宣传文字。
+
+```yaml
+footer:
+  text: 'Powered by <a href="https://hexo.io/">Hexo</a> · <a href="mailto:hello@example.org">Email</a>'
+```
 
 ## About
 
@@ -347,7 +352,7 @@ post:
 | `footer.since` | 字符串 | `""` |  |
 | `footer.author` | 字符串 | `""` |  |
 | `footer.back_to_top` | 布尔值 | `true` |  |
-| `footer.text` | 字符串 | `""` |  |
+| `footer.text` | 字符串 | `""` | 页脚中显示的可信内联 HTML；仅使用站点所有者提供的内容。 |
 | `footer.links` | 列表 | `[]` |  |
 
 ### style 默认值

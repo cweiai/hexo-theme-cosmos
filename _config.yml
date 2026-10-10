@@ -120,7 +120,7 @@ footer:
   since: ''
   author: '' # Falls back to the site's author.
   back_to_top: true
-  text: ''
+  text: '' # Trusted inline HTML from the site owner.
   links: []
 
 style:

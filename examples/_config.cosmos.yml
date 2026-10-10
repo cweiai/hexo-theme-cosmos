@@ -27,3 +27,6 @@ navigation:
   - { route: archives }
   - { route: categories }
   - { route: tags }
+
+footer:
+  text: 'Built with <a href="https://hexo.io/">Hexo</a>'

@@ -698,7 +698,7 @@
         },
         "text": {
           "type": "string",
-          "description": "Footer: footer.text. See the configuration guide for behavior.",
+          "description": "Trusted inline HTML shown in the footer; use site-owner content only.",
           "default": ""
         },
         "links": {

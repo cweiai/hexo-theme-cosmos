@@ -16,9 +16,11 @@
 | settings.test.cjs | 单元测试 | 列表替换、URL 安全、路径及脚本内容序列化。 |
 | documentation.test.cjs | 周边检查 | Markdown 链接与锚点、双语配对及 Agent 指南仅英文的例外、默认英文、主题章节直达链接、用户文档范围、配置 Schema 和 CI 运行环境。 |
 | reference.test.cjs | 参考文档回归测试 | 在临时副本中运行参考工具，覆盖 LF/CRLF/混合换行、只读校验、文档与 Schema 过期和默认值变化检测，以及 LF 格式重新生成。 |
-| screenshots/ | 视觉验证 | 文章内容、代码间距、复制按钮对齐和动效反馈的桌面与手机截图。 |
+| screenshots/ | 视觉验证 | 分类导航、文章内容、代码间距、复制按钮对齐和动效反馈的桌面与手机截图。 |
 
 `npm run check:package` 单独在新站点安装真实压缩包。`COSMOS_HEXO_VERSION` 指定该检查的 Hexo 版本。此检查依赖网络，与普通测试套件分开。
+
+检查文章列表分类导航时，生成属于 Commentaries、Investment、Life 和 Reading 的文章，检查桌面和 320–390px 手机宽度。所有链接都必须完整显示且无需横向滚动，手机端搜索框应位于换行后的分类下方。同时检查较多分类、无空格长名称、中文标签、键盘焦点、当前分类、禁用搜索、减少动态效果和关闭 JavaScript 后的导航。`screenshots/category-wrap-desktop.png` 与 `screenshots/category-wrap-mobile.png` 记录 issue #6 的修复效果。
 
 检查代码标记行间距时，在桌面和手机宽度下验证 2px 强调色竖线后留有 8px 间隔、代码行首对齐、缩进保留且复制文字不变。同时检查长行、隐藏行号、禁用复制和关闭 JavaScript 后的阅读。`screenshots/code-mark-spacing-desktop.png` 与 `screenshots/code-mark-spacing-mobile.png` 记录了生成的 Hexo 文章中的间距修复效果。
 

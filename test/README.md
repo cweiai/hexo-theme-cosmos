@@ -16,9 +16,11 @@ Real temporary Hexo sites verify theme behavior. Temporary fixtures are removed 
 | settings.test.cjs | Unit tests | Array replacement, URL safety, paths, and serialized script content. |
 | documentation.test.cjs | Support checks | Markdown links/anchors, translation pairing with an English-only agent-guide exception, English defaults, direct topic links, user-document boundaries, configuration schema, and CI runtime targets. |
 | reference.test.cjs | Reference regression tests | Runs the reference tool in temporary fixtures with LF/CRLF/mixed line endings; checks read-only validation, detection of stale documents/schema/defaults, and LF regeneration. |
-| screenshots/ | Visual evidence | Desktop/mobile captures of article content, code spacing, copy alignment, and motion feedback. |
+| screenshots/ | Visual evidence | Desktop/mobile captures of category navigation, article content, code spacing, copy alignment, and motion feedback. |
 
 `npm run check:package` separately installs a real packed archive in a fresh site. `COSMOS_HEXO_VERSION` selects the Hexo version for that installation test. This network-dependent check is separate from the regular test suite.
+
+For listing category navigation, generate posts in Commentaries, Investment, Life, and Reading, then inspect desktop and 320–390px mobile widths. All links must remain visible without horizontal scrolling, with search below the wrapped rows on mobile. Also check many categories, long unbroken names, Chinese labels, keyboard focus, the selected category, disabled search, reduced motion, and JavaScript-disabled navigation. `screenshots/category-wrap-desktop.png` and `screenshots/category-wrap-mobile.png` record the issue #6 fix.
 
 For marked-line spacing, verify an 8px gap after the 2px accent rule, aligned code starts, preserved indentation, and unchanged copied text at desktop/mobile widths. Check long lines, hidden line numbers, disabled copying, and reading without JavaScript. `screenshots/code-mark-spacing-desktop.png` and `screenshots/code-mark-spacing-mobile.png` record the spacing fix in a generated Hexo article.
 

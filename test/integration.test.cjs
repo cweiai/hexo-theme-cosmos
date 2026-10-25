@@ -228,3 +228,32 @@ test('front-matter photos render safely in order and respect the deployment root
     });
   }
 });
+test('listing aside lists render a safe fallback and random-pick candidates', async t => {
+  await t.test('list', async () => {
+    const site = await build({}, { listing: { aside: ['First <line>', { text: 'Second', note: 'Author & co' }], aside_note: 'Default note' } });
+    try {
+      const index = site.read('blog/index.html');
+      assert.match(index, /<p>First &lt;line&gt;<\/p><span>Default note<\/span>/);
+      const encoded = index.match(/data-asides="([^"]+)"/)[1];
+      assert.ok(!encoded.includes('<'));
+      assert.match(encoded, /Author &amp; co/);
+      assert.match(index, /<\/aside><script>/);
+    } finally { await site.close(); }
+  });
+  await t.test('single string', async () => {
+    const site = await build({}, { listing: { aside: 'Only line', aside_note: '' } });
+    try {
+      const index = site.read('blog/index.html');
+      assert.match(index, /<aside class="index-aside"><p>Only line<\/p><\/aside>/);
+      assert.ok(!index.includes('data-asides'));
+    } finally { await site.close(); }
+  });
+  await t.test('empty list', async () => {
+    const site = await build({}, { listing: { aside: [], aside_note: '' } });
+    try {
+      const index = site.read('blog/index.html');
+      assert.ok(!index.includes('class="index-aside"'));
+      assert.match(index, /without-listing-aside/);
+    } finally { await site.close(); }
+  });
+});

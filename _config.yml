@@ -86,7 +86,7 @@ listing:
   date: true
   category: true
   reading_time: true
-  aside: ''
+  aside: '' # Text, or a list of entries shown at random on each load.
   aside_note: ''
   signoff: ''
 

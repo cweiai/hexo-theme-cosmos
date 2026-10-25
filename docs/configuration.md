@@ -121,6 +121,16 @@ Use `facts: []`, `contacts: []`, and `email: ''` to clear these regions. Use `ab
 
 All optional sidebar/signoff strings default to empty. Newlines in reading-note or listing-aside strings are preserved. Article `post_options` can override any `post` option; standard front matter `toc: false` and `comments: false` work too. Older entries are on the right, including when there is no newer entry. Empty tags/signoff never create an empty closing block.
 
+`listing.aside` also accepts a list. The page renders the first entry, and the browser replaces it with a random one on each load, avoiding the previous pick within a session. An entry is a string or `{ text, note }`; `note` replaces `aside_note` for that entry. The sidebar is narrow and hidden on mobile, so short lines read best.
+
+```yaml
+listing:
+  aside:
+    - "Ideas tend to find\neach other here."
+    - { text: "Begin anywhere.", note: John Cage }
+  aside_note: Newest pages first.
+```
+
 ## Style details
 
 The `style` tree emits CSS custom properties without requiring a compiler. Dimensions use CSS units; line heights may be unitless numbers or CSS strings.
@@ -303,8 +313,8 @@ Applies to: Blog, archives, categories and tags.
 | `listing.date` | boolean | `true` |  |
 | `listing.category` | boolean | `true` |  |
 | `listing.reading_time` | boolean | `true` |  |
-| `listing.aside` | string | `""` |  |
-| `listing.aside_note` | string | `""` |  |
+| `listing.aside` | string or array | `""` | Italic sidebar text, or a list of strings/{ text, note } entries; a random entry replaces the first one in the browser. |
+| `listing.aside_note` | string | `""` | Small sidebar line; a list entry's own note takes precedence. |
 | `listing.signoff` | string | `""` |  |
 
 ### post defaults

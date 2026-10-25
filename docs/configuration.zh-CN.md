@@ -121,6 +121,16 @@ about:
 
 可选的侧栏文字和结语默认均为空。阅读提示和列表旁注中的换行会保留。文章的 `post_options` 可覆盖任意 `post` 设置，标准头部配置 `toc: false` 和 `comments: false` 也有效。较旧文章的入口显示在右侧，即使没有较新文章也是如此。空标签和结语不会产生空白的文章结尾区域。
 
+`listing.aside` 也可以是列表。页面先输出第一条，浏览器每次加载时随机替换为其中一条，同一会话内不会连续两次显示同一条。条目可以是字符串或 `{ text, note }`；`note` 会替换该条目对应的 `aside_note`。侧栏较窄且在移动端隐藏，适合简短的句子。
+
+```yaml
+listing:
+  aside:
+    - "Ideas tend to find\neach other here."
+    - { text: "Begin anywhere.", note: John Cage }
+  aside_note: Newest pages first.
+```
+
 ## 样式详情
 
 `style` 会输出 CSS 自定义属性，不需要编译器。尺寸使用 CSS 单位；行高可使用无单位数字或 CSS 字符串。
@@ -303,8 +313,8 @@ post:
 | `listing.date` | 布尔值 | `true` |  |
 | `listing.category` | 布尔值 | `true` |  |
 | `listing.reading_time` | 布尔值 | `true` |  |
-| `listing.aside` | 字符串 | `""` |  |
-| `listing.aside_note` | 字符串 | `""` |  |
+| `listing.aside` | 字符串或列表 | `""` | 斜体侧栏文字，或由字符串/{ text, note } 条目组成的列表；浏览器会随机替换首条。 |
+| `listing.aside_note` | 字符串 | `""` | 侧栏小字；列表条目自带的 note 优先。 |
 | `listing.signoff` | 字符串 | `""` |  |
 
 ### post 默认值

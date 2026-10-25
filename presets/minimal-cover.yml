@@ -16,7 +16,9 @@ about:
 listing:
   title: All writing
   title_period: true
-  aside: "Ideas tend to find\neach other here."
+  aside:
+    - "Ideas tend to find\neach other here."
+    - "Small notes,\nkept in order."
   aside_note: Newest pages first.
   signoff: Not every thought is finished. That’s part of the point.
 post:

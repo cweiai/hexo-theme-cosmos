@@ -17,7 +17,7 @@ EJS layouts for all standard pages and reusable editorial components.
 | post.ejs | Article | Configurable reading controls, metadata, front-matter photo galleries, and navigation. |
 | page.ejs | Page | Generic Markdown/HTML content. |
 | categories.ejs / tags.ejs | Taxonomy indexes | All category/tag navigation. |
-| _partial/ | Components | Profile, entry, navigation, footer, and taxonomy rows. |
+| _partial/ | Components | Profile, entry, navigation, footer, taxonomy rows, and the listing-aside random pick. |
 
 Article headings, document metadata, listing entries, and adjacent-post links share the localized `entry_title` fallback. Gallery URLs pass through `post_photos` before escaped attributes are rendered; ordinary body content retains its renderer output.
 

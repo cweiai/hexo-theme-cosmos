@@ -1,0 +1,18 @@
+<script>(() => {
+  // Runs during parsing so the chosen entry replaces the fallback before first paint.
+  const aside = document.currentScript.previousElementSibling;
+  const items = JSON.parse(aside.dataset.asides);
+  let last = -1;
+  try { last = Number(sessionStorage.getItem('cosmos-aside') ?? -1); } catch { /* The fallback entry still reads well. */ }
+  const avoid = Number.isInteger(last) && last >= 0 && last < items.length;
+  let index = Math.floor(Math.random() * (items.length - (avoid ? 1 : 0)));
+  if (avoid && index >= last) index += 1;
+  try { sessionStorage.setItem('cosmos-aside', String(index)); } catch { /* Repeats are acceptable without storage. */ }
+  const { text, note } = items[index];
+  aside.querySelector('p').textContent = text;
+  let label = aside.querySelector('span');
+  if (note) {
+    if (!label) label = aside.appendChild(document.createElement('span'));
+    label.textContent = note;
+  } else label?.remove();
+})();</script>

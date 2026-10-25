@@ -19,6 +19,8 @@ const descriptions = {
   'about.header_html': 'Trusted HTML replacing the full About heading.',
   'about.sidebar_html': 'Trusted HTML replacing the default profile sidebar.',
   'about.profile.enabled': 'Shows the configured profile. To remove the sidebar column, also leave about.sidebar_html empty.',
+  'listing.aside': 'Italic sidebar text, or a list of strings/{ text, note } entries; a random entry replaces the first one in the browser.',
+  'listing.aside_note': 'Small sidebar line; a list entry\'s own note takes precedence.',
   'post.comments': 'Shows custom.after_post. This switch does not install a comment provider.',
   'post.toc_depth': 'Maximum heading level shown in the article table of contents; integer from 1 to 6.',
   'search.path': 'Generated local search JSON path; respects the site root.',
@@ -47,6 +49,8 @@ const descriptionsZh = {
   'about.header_html': '替换整个 About 标题的可信 HTML。',
   'about.sidebar_html': '替换默认个人资料侧栏的可信 HTML。',
   'about.profile.enabled': '显示配置生成的个人资料；若要移除侧栏及其列，还需清空 about.sidebar_html。',
+  'listing.aside': '斜体侧栏文字，或由字符串/{ text, note } 条目组成的列表；浏览器会随机替换首条。',
+  'listing.aside_note': '侧栏小字；列表条目自带的 note 优先。',
   'post.comments': '显示 custom.after_post；该开关不会安装评论服务。',
   'post.toc_depth': '文章目录中显示的最大标题级别，取 1 至 6 的整数。',
   'search.path': '生成的本地搜索 JSON 路径，遵循站点根路径。',
@@ -81,6 +85,7 @@ definition.properties.about.properties.profile.properties.facts.items = { type: 
 definition.properties.about.properties.profile.properties.contacts.items = { type: 'object', properties: Object.fromEntries(['label', 'url', 'value', 'icon'].map(key => [key, { type: 'string' }])), additionalProperties: false };
 definition.properties.pages.properties.custom.items = { type: 'object', properties: { ...Object.fromEntries(['path', 'title', 'layout', 'content', 'file'].map(key => [key, { type: 'string' }])), enabled: { type: 'boolean' } }, required: ['path'], additionalProperties: true };
 for (const type of ['css', 'js']) definition.properties.custom.properties[type].items = { type: 'string' };
+definition.properties.listing.properties.aside = { ...definition.properties.listing.properties.aside, type: ['string', 'array'], items: { anyOf: [{ type: 'string' }, { type: 'object', properties: { text: { type: 'string' }, note: { type: 'string' } }, required: ['text'], additionalProperties: false }] } };
 definition.properties.labels.additionalProperties = { type: 'string' };
 definition.properties.style.properties.variables.additionalProperties = { type: ['string', 'number'] };
 for (const name of ['body_line_height', 'body_mobile_line_height', 'quote_line_height']) {
@@ -110,7 +115,7 @@ function reference(language) {
       const raw = JSON.stringify(row.child);
       const escaped = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\|/g, '&#124;');
       const value = raw.length > 140 ? `<details><summary>${chinese ? '查看全部条目' : 'Show all entries'}</summary><code>${escaped}</code></details>` : '`' + cell(raw) + '`';
-      const typesZh = { string: '字符串', boolean: '布尔值', number: '数字', integer: '整数', object: '对象', array: '列表', 'number or string': '数字或字符串' };
+      const typesZh = { string: '字符串', boolean: '布尔值', number: '数字', integer: '整数', object: '对象', array: '列表', 'number or string': '数字或字符串', 'string or array': '字符串或列表' };
       result += `| \`${row.name}\` | ${chinese ? typesZh[row.type] : row.type} | ${value} | ${cell(descriptionsForLanguage[row.name] || '')} |\n`;
     }
     result += '\n';

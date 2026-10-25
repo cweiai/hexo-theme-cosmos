@@ -10,4 +10,4 @@ Pure helpers shared by Hexo templates and generators.
 
 | Name | Kind | Description |
 | --- | --- | --- |
-| settings.cjs | Module | Safe recursive settings merge, URL/path validation, JSON serialization, and CSS variables. |
+| settings.cjs | Module | Safe recursive settings merge, URL/path validation, JSON serialization, listing-aside entry normalization, and CSS variables. |

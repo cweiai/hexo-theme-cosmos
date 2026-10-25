@@ -85,6 +85,7 @@ hexo.extend.helper.register('cosmos_post', function () {
   for (const key of ['toc','comments']) if (typeof this.page[key] === 'boolean') c[key] = this.page[key];
   return c;
 });
+hexo.extend.helper.register('cosmos_listing_asides', () => core.asides(get().listing.aside, get().listing.aside_note));
 hexo.extend.helper.register('cosmos_listing_title', function () {
   const p = this.page;
   return p.category || (p.tag ? translate(this,'tag_title',{tag:p.tag}) : p.month ? translate(this,'archive_month',{year:p.year,month:String(p.month).padStart(2,'0')}) : p.year ? translate(this,'archive_year',{year:p.year}) : p.archive ? translate(this,'archives') : get().listing.title || translate(this,'all_writing'));

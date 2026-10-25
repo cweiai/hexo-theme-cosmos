@@ -533,13 +533,38 @@
           "default": true
         },
         "aside": {
-          "type": "string",
-          "description": "Blog, archives, categories and tags: listing.aside. See the configuration guide for behavior.",
-          "default": ""
+          "type": [
+            "string",
+            "array"
+          ],
+          "description": "Italic sidebar text, or a list of strings/{ text, note } entries; a random entry replaces the first one in the browser.",
+          "default": "",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
         },
         "aside_note": {
           "type": "string",
-          "description": "Blog, archives, categories and tags: listing.aside_note. See the configuration guide for behavior.",
+          "description": "Small sidebar line; a list entry's own note takes precedence.",
           "default": ""
         },
         "signoff": {

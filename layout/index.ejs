@@ -1,4 +1,4 @@
-<% const c = cosmos(); const l = c.listing; const hasAside = Boolean(l.aside || l.aside_note); %>
+<% const c = cosmos(); const l = c.listing; const asides = cosmos_listing_asides(); const aside = asides[0] || { text:'', note:l.aside_note }; const hasAside = Boolean(aside.text || aside.note); %>
 <section class="index-page shell<%= hasAside ? '' : ' without-listing-aside' %>">
   <header class="index-heading"><h1><%= cosmos_listing_title() %><% if (l.title_period) { %><span class="small-dot">.</span><% } %></h1></header>
   <% if (l.categories || c.search.enabled) { %>
@@ -9,7 +9,7 @@
   <% } %>
   <% if (c.search.enabled) { %><p class="search-status" role="status" hidden></p><div class="search-results" hidden></div><% } %>
   <div class="index-layout" data-default-list>
-    <% if (hasAside) { %><aside class="index-aside"><% if (l.aside) { %><p><%= l.aside %></p><% } %><% if (l.aside_note) { %><span><%= l.aside_note %></span><% } %></aside><% } %>
+    <% if (hasAside) { %><aside class="index-aside"<% if (asides.length > 1) { %> data-asides="<%= JSON.stringify(asides) %>"<% } %>><% if (aside.text) { %><p><%= aside.text %></p><% } %><% if (aside.note) { %><span><%= aside.note %></span><% } %></aside><% if (asides.length > 1) { %><%- partial('_partial/aside-pick') %><% } } %>
     <div class="entries"><% if (page.posts?.length) { page.posts.forEach(post => { %><%- partial('_partial/entry',{post}) %><% }) } else { %><p class="empty-message"><%= cx('empty') %></p><% } %></div>
   </div>
   <% if (page.total > 1) { %><nav class="pagination" aria-label="<%= cx('pagination') %>" data-default-pagination><%- paginator({prev_text:cx('previous'),next_text:cx('next'),mid_size:1,end_size:1}) %></nav><% } %>

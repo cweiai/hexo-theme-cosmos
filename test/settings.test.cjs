@@ -21,3 +21,11 @@ test('route traversal and script closing sequences are rejected or escaped', () 
   assert.equal(path('/notes/'),'notes');
   assert.ok(!json({text:'</script><script>alert(1)</script>'}).includes('<'));
 });
+test('listing asides accept a string or a list of strings and note entries', () => {
+  const { asides } = require('../lib/settings.cjs');
+  assert.deepEqual(asides('One line', 'Note'), [{ text:'One line', note:'Note' }]);
+  assert.deepEqual(asides(['A', { text:'B', note:'Author' }, { text:'C', note:'' }, ' ', null], 'Default'),
+    [{ text:'A', note:'Default' }, { text:'B', note:'Author' }, { text:'C', note:'' }]);
+  assert.deepEqual(asides('', 'Note'), []);
+  assert.deepEqual(asides([], ''), []);
+});
